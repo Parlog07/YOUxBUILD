@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('order_id')->unique()->constrained()->cascadeOnDelete();
+            $table->string('delivery_status');
+            $table->string('delivery_type');
+            $table->timestamp('estimated_date')->nullable();
+            $table->timestamp('delivered_at')->nullable();
         });
     }
 

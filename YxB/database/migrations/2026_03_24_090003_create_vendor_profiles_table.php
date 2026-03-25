@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('vendor_profiles', function (Blueprint $table) {
-            $table->id();
-            $table->string('full_name');
-            $table->string('email')->unique();
-            $table->timestamps();
+            $table->foreignId('vendor_id')->primary()->constrained('users')->cascadeOnDelete();
+            $table->string('store_name');
+            $table->text('store_description')->nullable();
+            $table->string('business_address');
+            $table->enum('approval_status', ['pending', 'approved', 'rejected'])->default('pending');
         });
     }
 

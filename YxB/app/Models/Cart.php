@@ -6,5 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
 {
-    //
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'client_id');
+    }
+
+    public function items()
+    {
+        return $this->hasMany(CartItem::class);
+    }
 }

@@ -6,5 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
 {
-    //
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'client_id');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
