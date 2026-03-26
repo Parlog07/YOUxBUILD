@@ -19,11 +19,6 @@ class User extends Authenticatable
         return $this->hasOne(VendorProfile::class, 'vendor_id');
     }
 
-    public function carts()
-    {
-        return $this->hasMany(Cart::class, 'client_id');
-    }
-
     public function orders()
     {
         return $this->hasMany(Order::class, 'client_id');
