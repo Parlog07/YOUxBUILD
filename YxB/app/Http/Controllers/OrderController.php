@@ -113,4 +113,15 @@ class OrderController extends Controller
         $order->total_price = $total;
         $order->save();
     }
+    public function myOrders()
+    {
+        $orders = Order::with('items.product')
+            ->where('user_id', auth()->id())
+            ->where('status', '!=', 'pending') // exclude cart
+            ->latest()
+            ->get();
+
+        return view('orders.index', compact('orders'));
+    }
+    
 }

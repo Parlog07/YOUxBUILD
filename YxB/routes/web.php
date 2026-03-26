@@ -28,5 +28,13 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
 });
+Route::get('/my-orders', [OrderController::class, 'myOrders'])
+    ->name('orders.index')
+    ->middleware('auth');
 
+
+
+
+
+    
 require __DIR__.'/auth.php';
