@@ -16,5 +16,17 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::middleware('auth')->group(function () {
+
+    Route::get('/cart', [OrderController::class, 'index'])->name('cart.index');
+
+    Route::post('/cart/add', [OrderController::class, 'addToCart'])->name('cart.add');
+
+    Route::post('/cart/update/{id}', [OrderController::class, 'updateItem'])->name('cart.update');
+
+    Route::delete('/cart/remove/{id}', [OrderController::class, 'removeItem'])->name('cart.remove');
+
+    Route::post('/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
+});
 
 require __DIR__.'/auth.php';

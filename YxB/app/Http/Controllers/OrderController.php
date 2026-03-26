@@ -25,9 +25,7 @@ class OrderController extends Controller
             'quantity' => 'required|integer|min:1'
         ]);
 
-        $user = auth()->user();
-        $order = $this->getOrCreateCart($user);
-
+        $order = $this->getOrCreateCart(auth()->user());
         $product = Product::findOrFail($request->product_id);
 
         $item = $order->items()->where('product_id', $product->id)->first();
@@ -45,7 +43,7 @@ class OrderController extends Controller
 
         $this->updateTotal($order);
 
-        return response()->json(['message' => 'Product added to cart']);
+        return redirect()->back()->with('success', 'Product added to cart');
     }
     public function updateItem(Request $request, $itemId)
     {
@@ -55,27 +53,31 @@ class OrderController extends Controller
 
         $item = OrderItem::findOrFail($itemId);
 
-        $this->authorize('update', $item->order);
+        if ($item->order->user_id !== auth()->id()) {
+            abort(403);
+        }
 
         $item->quantity = $request->quantity;
         $item->save();
 
         $this->updateTotal($item->order);
 
-        return response()->json(['message' => 'Item updated']);
+        return redirect()->back()->with('success', 'Item updated');
     }
     public function removeItem($itemId)
     {
         $item = OrderItem::findOrFail($itemId);
 
-        $this->authorize('update', $item->order);
+        if ($item->order->user_id !== auth()->id()) {
+            abort(403);
+        }
 
         $order = $item->order;
         $item->delete();
 
         $this->updateTotal($order);
 
-        return response()->json(['message' => 'Item removed']);
+        return redirect()->back()->with('success', 'Item removed');
     }
     public function viewCart()
     {
@@ -93,13 +95,14 @@ class OrderController extends Controller
             ->firstOrFail();
 
         if ($order->items->isEmpty()) {
-            return response()->json(['message' => 'Cart is empty'], 400);
+            return redirect()->back()->with('error', 'Cart is empty');
         }
 
         $order->status = 'confirmed';
         $order->save();
 
-        return response()->json(['message' => 'Order confirmed']);
+        return redirect()->route('orders.show', $order->id)
+            ->with('success', 'Order confirmed');
     }
     private function updateTotal($order)
     {
