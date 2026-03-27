@@ -36,8 +36,12 @@ Route::get('/my-orders', [OrderController::class, 'myOrders'])
     return view('welcome'); // or your homepage
 })->name('home');
 
-
-
+Route::get('/vendor/orders', [OrderController::class, 'vendorOrders'])
+    ->name('vendor.orders')
+    ->middleware('auth');
+Route::get('/admin/orders', [OrderController::class, 'adminOrders'])
+    ->name('admin.orders')
+    ->middleware('auth');
 
     
 require __DIR__.'/auth.php';

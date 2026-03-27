@@ -123,5 +123,28 @@ class OrderController extends Controller
 
         return view('orders.index', compact('orders'));
     }
+    public function vendorOrders()
+    {
+        $vendor = auth()->user()->vendorProfile;
+
+        $orders = Order::whereHas('items.product', function ($query) use ($vendor) {
+            $query->where('vendor_profile_id', $vendor->id);
+        })
+        ->with(['items.product'])
+        ->where('status', 'confirmed')
+        ->latest()
+        ->get();
+
+        return view('vendor.orders.index', compact('orders'));
+    }
+    public function adminOrders()
+    {
+        $orders = Order::with('items.product.user')
+            ->where('status', 'confirmed')
+            ->latest()
+            ->get();
+
+        return view('admin.orders.index', compact('orders'));
+    }
     
 }

@@ -19,3 +19,23 @@
 @empty
     <p>No orders yet</p>
 @endforelse
+<h2>Vendor Orders</h2>
+
+@forelse($orders as $order)
+    <div style="border:1px solid #ccc; margin-bottom:10px; padding:10px;">
+        <h4>Order #{{ $order->id }}</h4>
+
+        <ul>
+            @foreach($order->items as $item)
+                @if($item->product->vendor_profile_id == auth()->user()->vendorProfile->id)
+                    <li>
+                        {{ $item->product->name }} 
+                        x{{ $item->quantity }}
+                    </li>
+                @endif
+            @endforeach
+        </ul>
+    </div>
+@empty
+    <p>No orders yet</p>
+@endforelse
