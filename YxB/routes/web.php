@@ -32,6 +32,9 @@ Route::get('/my-orders', [OrderController::class, 'myOrders'])
     ->name('orders.index')
     ->middleware('auth');
 
+    Route::get('/', function () {
+    return view('welcome'); // or your homepage
+})->name('home');
 
 
 
