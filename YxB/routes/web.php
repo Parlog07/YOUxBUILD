@@ -43,5 +43,8 @@ Route::get('/admin/orders', [OrderController::class, 'adminOrders'])
     ->name('admin.orders')
     ->middleware('auth');
 
+Route::middleware(['role:admin'])->group(function () {
+    Route::get('/admin/vendors', [AdminVendorController::class, 'index']);
+    });
     
 require __DIR__.'/auth.php';

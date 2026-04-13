@@ -16,4 +16,19 @@ class VendorController extends Controller
             'approval_status' => 
         ])
     }
+    public function requestVendor()
+    {
+        $user = auth()->user();
+
+        if ($user->vendorProfile) {
+            return back()->with('error', 'You already requested');
+        }
+
+        VendorProfile::create([
+            'user_id' => $user->id,
+            'status' => 'pending',
+        ]);
+
+        return back()->with('success', 'Request sent');
+    }
 }
