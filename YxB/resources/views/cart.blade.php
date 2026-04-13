@@ -2,8 +2,9 @@
     @foreach($order->items as $item)
         <div>
             <h4>{{ $item->product->name }}</h4>
-            <p>Price: {{ $item->price }}</p>
+            <p>Price: {{ $item->unit_price }}</p>
             <p>Quantity: {{ $item->quantity }}</p>
+            <p>Subtotal: {{ $item->subtotal }}</p>
 
             <form action="{{ route('cart.update', $item->id) }}" method="POST">
                 @csrf
@@ -19,7 +20,7 @@
         </div>
     @endforeach
 
-    <h3>Total: {{ $order->total_price }}</h3>
+    <h3>Total: {{ $order->total_amount }}</h3>
 
     <form action="{{ route('cart.checkout') }}" method="POST">
         @csrf

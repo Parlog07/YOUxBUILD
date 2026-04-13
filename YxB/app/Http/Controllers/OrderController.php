@@ -2,22 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    public function index()
+    {
+        $order = Order::with('items.product')
+            ->where('client_id', auth()->id())
+            ->where('status', 'pending')
+            ->first();
+
+        return view('cart', compact('order'));
+    }
+
     private function getOrCreateCart($user)
     {
         return Order::firstOrCreate(
             [
-                'user_id' => $user->id,
+                'client_id' => $user->id,
                 'status' => 'pending'
             ],
             [
-                'total_price' => 0
+                'order_reference' => 'ORD-' . strtoupper(uniqid()),
+                'total_amount' => 0,
             ]
         );
     }
+
     public function addToCart(Request $request)
     {
         $request->validate([
@@ -32,12 +47,14 @@ class OrderController extends Controller
 
         if ($item) {
             $item->quantity += $request->quantity;
+            $item->subtotal = $item->unit_price * $item->quantity;
             $item->save();
         } else {
             $order->items()->create([
                 'product_id' => $product->id,
                 'quantity' => $request->quantity,
-                'price' => $product->price
+                'unit_price' => $product->price,
+                'subtotal' => $product->price * $request->quantity,
             ]);
         }
 
@@ -45,6 +62,7 @@ class OrderController extends Controller
 
         return redirect()->back()->with('success', 'Product added to cart');
     }
+
     public function updateItem(Request $request, $itemId)
     {
         $request->validate([
@@ -53,11 +71,12 @@ class OrderController extends Controller
 
         $item = OrderItem::findOrFail($itemId);
 
-        if ($item->order->user_id !== auth()->id()) {
+        if ($item->order->client_id !== auth()->id()) {
             abort(403);
         }
 
         $item->quantity = $request->quantity;
+        $item->subtotal = $item->unit_price * $item->quantity;
         $item->save();
 
         $this->updateTotal($item->order);
@@ -68,7 +87,7 @@ class OrderController extends Controller
     {
         $item = OrderItem::findOrFail($itemId);
 
-        if ($item->order->user_id !== auth()->id()) {
+        if ($item->order->client_id !== auth()->id()) {
             abort(403);
         }
 
@@ -82,15 +101,16 @@ class OrderController extends Controller
     public function viewCart()
     {
         $order = Order::with('items.product')
-            ->where('user_id', auth()->id())
+            ->where('client_id', auth()->id())
             ->where('status', 'pending')
             ->first();
 
         return response()->json($order);
     }
+
     public function checkout()
     {
-        $order = Order::where('user_id', auth()->id())
+        $order = Order::where('client_id', auth()->id())
             ->where('status', 'pending')
             ->firstOrFail();
 
@@ -99,25 +119,28 @@ class OrderController extends Controller
         }
 
         $order->status = 'confirmed';
+        $order->ordered_at = now();
         $order->save();
 
-        return redirect()->route('orders.show', $order->id)
+        return redirect()->route('orders.index')
             ->with('success', 'Order confirmed');
     }
+
     private function updateTotal($order)
     {
         $total = $order->items->sum(function ($item) {
-            return $item->price * $item->quantity;
+            return $item->unit_price * $item->quantity;
         });
 
-        $order->total_price = $total;
+        $order->total_amount = $total;
         $order->save();
     }
+
     public function myOrders()
     {
         $orders = Order::with('items.product')
-            ->where('user_id', auth()->id())
-            ->where('status', '!=', 'pending') // exclude cart
+            ->where('client_id', auth()->id())
+            ->where('status', '!=', 'pending')
             ->latest()
             ->get();
 
@@ -128,23 +151,23 @@ class OrderController extends Controller
         $vendor = auth()->user()->vendorProfile;
 
         $orders = Order::whereHas('items.product', function ($query) use ($vendor) {
-            $query->where('vendor_profile_id', $vendor->id);
+            $query->where('vendor_id', $vendor->getKey());
         })
         ->with(['items.product'])
         ->where('status', 'confirmed')
         ->latest()
         ->get();
 
-        return view('vendor.orders.index', compact('orders'));
+        return view('orders.index', compact('orders'));
     }
+
     public function adminOrders()
     {
-        $orders = Order::with('items.product.user')
+        $orders = Order::with('items.product.vendor.user')
             ->where('status', 'confirmed')
             ->latest()
             ->get();
 
-        return view('admin.orders.index', compact('orders'));
+        return view('orders.index', compact('orders'));
     }
-    
 }

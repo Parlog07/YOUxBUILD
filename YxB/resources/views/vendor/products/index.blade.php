@@ -5,7 +5,7 @@
                 My Products
             </h2>
 
-            <a href="{{ route('products.create') }}" class="text-blue-600 hover:underline">
+            <a href="{{ route('vendor.products.create') }}" class="text-blue-600 hover:underline">
                 Add Product
             </a>
         </div>
@@ -41,11 +41,11 @@
                                         <td class="py-3">{{ $product->stock_quantity }}</td>
                                         <td class="py-3">
                                             <div class="flex gap-3">
-                                                <a href="{{ route('products.edit', $product) }}" class="text-blue-600 hover:underline">
+                                                <a href="{{ route('vendor.products.edit', $product) }}" class="text-blue-600 hover:underline">
                                                     Edit
                                                 </a>
 
-                                                <form action="{{ route('products.destroy', $product) }}" method="POST">
+                                                <form action="{{ route('vendor.products.destroy', $product) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-red-600 hover:underline">

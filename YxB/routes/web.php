@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProductController as PublicProductController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\Vendor\ProductController;
+use App\Http\Controllers\Vendor\ProductController as VendorProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminVendorController;
 
@@ -14,6 +15,9 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/products', [PublicProductController::class, 'index'])->name('products.index');
+Route::get('/products/{id}', [PublicProductController::class, 'show'])->name('products.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -56,7 +60,7 @@ Route::post('/become-vendor', [VendorController::class, 'requestVendor'])
     ->name('vendor.request');
 
 Route::middleware(['auth', 'role:vendor'])->prefix('vendor')->group(function () {
-    Route::resource('products', ProductController::class);
+    Route::resource('products', VendorProductController::class)->names('vendor.products');
 });
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 

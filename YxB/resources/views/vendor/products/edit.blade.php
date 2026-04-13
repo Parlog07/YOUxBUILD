@@ -9,9 +9,25 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form action="{{ route('products.update', $product) }}" method="POST" class="space-y-6">
+                    <form action="{{ route('vendor.products.update', $product) }}" method="POST" class="space-y-6">
                         @csrf
                         @method('PUT')
+
+                        @if ($errors->any())
+                            <div class="rounded-md border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+                                Please fix the validation errors below and try again.
+                            </div>
+                        @endif
+
+                        <div class="flex items-center gap-4 border-b pb-4">
+                            <button type="submit" class="px-4 py-2 bg-gray-900 text-white rounded-md">
+                                Update Product
+                            </button>
+
+                            <a href="{{ route('vendor.products.index') }}" class="text-gray-600 hover:underline">
+                                Cancel
+                            </a>
+                        </div>
 
                         <div>
                             <label for="name" class="block font-medium text-sm text-gray-700">Name</label>
@@ -92,12 +108,12 @@
                             @enderror
                         </div>
 
-                        <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-4 border-t pt-4">
                             <button type="submit" class="px-4 py-2 bg-gray-900 text-white rounded-md">
                                 Update Product
                             </button>
 
-                            <a href="{{ route('products.index') }}" class="text-gray-600 hover:underline">
+                            <a href="{{ route('vendor.products.index') }}" class="text-gray-600 hover:underline">
                                 Cancel
                             </a>
                         </div>

@@ -36,7 +36,7 @@ class ProductController extends Controller
         ]);
 
         return redirect()
-            ->route('products.index')
+            ->route('vendor.products.index')
             ->with('success', 'Product created successfully.');
     }
 
@@ -44,7 +44,7 @@ class ProductController extends Controller
     {
         $product = $this->findVendorProduct($id);
 
-        return redirect()->route('products.edit', $product);
+        return redirect()->route('vendor.products.edit', $product);
     }
 
     public function edit(string $id): View
@@ -62,7 +62,7 @@ class ProductController extends Controller
         $product->update($this->validatedData($request));
 
         return redirect()
-            ->route('products.index')
+            ->route('vendor.products.index')
             ->with('success', 'Product updated successfully.');
     }
 
@@ -73,7 +73,7 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()
-            ->route('products.index')
+            ->route('vendor.products.index')
             ->with('success', 'Product deleted successfully.');
     }
 

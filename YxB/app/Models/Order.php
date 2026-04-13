@@ -9,6 +9,7 @@ class Order extends Model
     protected $fillable = [
         'client_id',
         'address_id',
+        'order_reference',
         'status',
         'total_amount',
         'ordered_at'
