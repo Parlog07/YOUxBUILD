@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\VendorProfile;
 use Illuminate\Http\Request;
 
 class AdminVendorController extends Controller
 {
     public function index()
     {
-        $vendors = VendorProfile::with('user')->get();
+        $vendors = VendorProfile::with('user')->latest('vendor_id')->get();
 
         return view('admin.vendors.index', compact('vendors'));
     }

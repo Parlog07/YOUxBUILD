@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class VendorProfile extends Model
 {
     protected $primaryKey = 'vendor_id';
+    protected $fillable = ['vendor_id', 'status'];
     public $incrementing = false;
+    public $timestamps = false;
 
     public function user()
     {

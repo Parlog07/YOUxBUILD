@@ -6,6 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    protected $fillable = [
+        'vendor_id',
+        'category_id',
+        'name',
+        'description',
+        'technical_specs',
+        'price',
+        'stock_quantity',
+        'availability_status',
+        'image_url',
+        'product_type',
+    ];
+
     public function vendor()
     {
         return $this->belongsTo(VendorProfile::class, 'vendor_id', 'vendor_id');

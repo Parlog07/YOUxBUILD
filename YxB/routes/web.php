@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VendorController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Vendor\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminVendorController;
 
@@ -48,6 +51,13 @@ Route::middleware(['role:admin'])->group(function () {
     Route::get('/admin/vendors', [AdminVendorController::class, 'index']);
     });
 
+Route::post('/become-vendor', [VendorController::class, 'requestVendor'])
+    ->middleware('auth')
+    ->name('vendor.request');
+
+Route::middleware(['auth', 'role:vendor'])->prefix('vendor')->group(function () {
+    Route::resource('products', ProductController::class);
+});
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 
     Route::get('/vendors', [AdminVendorController::class, 'index']);
@@ -57,3 +67,15 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::post('/vendors/{id}/reject', [AdminVendorController::class, 'reject']);
 });
 require __DIR__.'/auth.php';
+
+
+
+
+
+
+
+
+    // $user = \App\Models\User::find();
+    // $user->role = 'admin';
+    // $user->save();
+    //php artisan tinker --execute="\App\Models\User::where('email', 'ayoub@gmail.com')->update(['role' => 'admin']);"

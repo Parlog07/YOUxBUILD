@@ -1,21 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\VendorProfile;
 use Illuminate\Http\Request;
 
 class VendorController extends Controller
 {
-    public function requestVendor(Request $request){
-        $user = auth()->user();
-
-        VendorProfile::create([
-            'vendor_id' => $user
-            'store_name' =>
-            'business_address' =>
-            'approval_status' => 
-        ])
-    }
     public function requestVendor()
     {
         $user = auth()->user();
@@ -25,7 +15,7 @@ class VendorController extends Controller
         }
 
         VendorProfile::create([
-            'user_id' => $user->id,
+            'vendor_id' => $user->id,
             'status' => 'pending',
         ]);
 
