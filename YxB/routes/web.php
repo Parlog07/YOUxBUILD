@@ -33,7 +33,7 @@ Route::get('/my-orders', [OrderController::class, 'myOrders'])
     ->middleware('auth');
 
     Route::get('/', function () {
-    return view('welcome'); // or your homepage
+    return view('welcome'); // or homepage
 })->name('home');
 
 Route::get('/vendor/orders', [OrderController::class, 'vendorOrders'])
