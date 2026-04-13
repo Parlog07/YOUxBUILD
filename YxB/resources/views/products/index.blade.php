@@ -9,10 +9,10 @@
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form action="{{ route('products.index') }}" method="GET" class="grid gap-4 md:grid-cols-3">
+                    <form method="GET" action="{{ route('products.index') }}" class="grid gap-4 md:grid-cols-3">
                         <div>
                             <label for="search" class="block font-medium text-sm text-gray-700">Search</label>
-                            <input id="search" name="search" type="text" value="{{ request('search') }}" class="mt-1 block w-full border-gray-300 rounded-md">
+                            <input id="search" name="search" type="text" placeholder="Search products..." value="{{ request('search') }}" class="mt-1 block w-full border-gray-300 rounded-md">
                         </div>
 
                         <div>
@@ -43,7 +43,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     @if ($products->isEmpty())
-                        <p>No products found.</p>
+                        <p>No products found</p>
                     @else
                         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                             @foreach ($products as $product)

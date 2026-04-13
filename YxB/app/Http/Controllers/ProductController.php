@@ -11,17 +11,19 @@ class ProductController extends Controller
 {
     public function index(Request $request): View
     {
-        $products = Product::with(['category', 'vendor.user'])
-            ->when($request->filled('category'), function ($query) use ($request) {
-                $query->where('category_id', $request->integer('category'));
-            })
-            ->when($request->filled('search'), function ($query) use ($request) {
-                $query->where('name', 'like', '%' . $request->string('search') . '%');
-            })
-            ->latest()
-            ->get();
+        $query = Product::with(['category', 'vendor.user'])->latest();
 
-        $categories = Category::orderBy('name')->get();
+        if ($request->category) {
+            $query->where('category_id', $request->category);
+        }
+
+        if ($request->search) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        $products = $query->get();
+
+        $categories = Category::all();
 
         return view('products.index', compact('products', 'categories'));
     }
