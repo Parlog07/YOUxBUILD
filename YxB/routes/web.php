@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminVendorController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -46,5 +47,13 @@ Route::get('/admin/orders', [OrderController::class, 'adminOrders'])
 Route::middleware(['role:admin'])->group(function () {
     Route::get('/admin/vendors', [AdminVendorController::class, 'index']);
     });
-    
+
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+
+    Route::get('/vendors', [AdminVendorController::class, 'index']);
+
+    Route::post('/vendors/{id}/approve', [AdminVendorController::class, 'approve']);
+
+    Route::post('/vendors/{id}/reject', [AdminVendorController::class, 'reject']);
+});
 require __DIR__.'/auth.php';
