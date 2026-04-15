@@ -12,6 +12,10 @@
                     @if ($vendors->isEmpty())
                         <p>No vendor requests yet.</p>
                     @else
+                        @if (session('success'))
+                            <p class="mb-4 text-green-600">{{ session('success') }}</p>
+                        @endif
+
                         <table class="w-full border-collapse">
                             <thead>
                                 <tr class="border-b">
@@ -30,12 +34,12 @@
                                         <td class="py-3">
                                             @if ($vendor->status === 'pending')
                                                 <div class="flex gap-2">
-                                                    <form action="{{ url('/admin/vendors/' . $vendor->vendor_id . '/approve') }}" method="POST">
+                                                    <form action="{{ route('admin.vendors.approve', $vendor->vendor_id) }}" method="POST">
                                                         @csrf
                                                         <button type="submit">Approve</button>
                                                     </form>
 
-                                                    <form action="{{ url('/admin/vendors/' . $vendor->vendor_id . '/reject') }}" method="POST">
+                                                    <form action="{{ route('admin.vendors.reject', $vendor->vendor_id) }}" method="POST">
                                                         @csrf
                                                         <button type="submit">Reject</button>
                                                     </form>

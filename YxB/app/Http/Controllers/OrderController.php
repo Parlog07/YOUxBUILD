@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    private const VENDOR_VISIBLE_STATUSES = ['confirmed', 'shipped', 'delivered', 'cancelled'];
+
+    /**
+     * Show the current user's pending cart.
+     */
     public function index()
     {
         $order = Order::with('items.product')
@@ -19,6 +24,9 @@ class OrderController extends Controller
         return view('cart', compact('order'));
     }
 
+    /**
+     * Create the current cart if it does not exist yet.
+     */
     private function getOrCreateCart($user)
     {
         return Order::firstOrCreate(
@@ -33,6 +41,9 @@ class OrderController extends Controller
         );
     }
 
+    /**
+     * Add a product to the authenticated user's cart.
+     */
     public function addToCart(Request $request)
     {
         $request->validate([
@@ -63,6 +74,9 @@ class OrderController extends Controller
         return redirect()->back()->with('success', 'Product added to cart');
     }
 
+    /**
+     * Update one cart item that belongs to the current user.
+     */
     public function updateItem(Request $request, $itemId)
     {
         $request->validate([
@@ -83,6 +97,10 @@ class OrderController extends Controller
 
         return redirect()->back()->with('success', 'Item updated');
     }
+
+    /**
+     * Remove one cart item that belongs to the current user.
+     */
     public function removeItem($itemId)
     {
         $item = OrderItem::findOrFail($itemId);
@@ -98,6 +116,10 @@ class OrderController extends Controller
 
         return redirect()->back()->with('success', 'Item removed');
     }
+
+    /**
+     * Return the cart as JSON for quick inspection.
+     */
     public function viewCart()
     {
         $order = Order::with('items.product')
@@ -108,6 +130,9 @@ class OrderController extends Controller
         return response()->json($order);
     }
 
+    /**
+     * Turn the pending cart into a confirmed order.
+     */
     public function checkout()
     {
         $order = Order::where('client_id', auth()->id())
@@ -126,6 +151,9 @@ class OrderController extends Controller
             ->with('success', 'Order confirmed');
     }
 
+    /**
+     * Recalculate the total amount from the current order items.
+     */
     private function updateTotal($order)
     {
         $total = $order->items->sum(function ($item) {
@@ -136,6 +164,9 @@ class OrderController extends Controller
         $order->save();
     }
 
+    /**
+     * Show the authenticated client's completed orders.
+     */
     public function myOrders()
     {
         $orders = Order::with('items.product')
@@ -144,30 +175,109 @@ class OrderController extends Controller
             ->latest()
             ->get();
 
-        return view('orders.index', compact('orders'));
+        return view('orders.index', [
+            'orders' => $orders,
+            'pageTitle' => 'My Orders',
+        ]);
     }
+
+    /**
+     * Show only orders that contain the current vendor's products.
+     */
     public function vendorOrders()
     {
         $vendor = auth()->user()->vendorProfile;
 
-        $orders = Order::whereHas('items.product', function ($query) use ($vendor) {
-            $query->where('vendor_id', $vendor->getKey());
-        })
-        ->with(['items.product'])
-        ->where('status', 'confirmed')
+        $orders = $this->vendorOrdersQuery($vendor->getKey())
+        ->whereIn('status', self::VENDOR_VISIBLE_STATUSES)
         ->latest()
         ->get();
 
-        return view('orders.index', compact('orders'));
+        return view('orders.index', [
+            'orders' => $orders,
+            'pageTitle' => 'Vendor Orders',
+        ]);
     }
 
+    /**
+     * Move a vendor-owned order from confirmed to shipped.
+     */
+    public function markAsShipped($id)
+    {
+        $order = $this->findVendorOrder($id);
+
+        if ($order->status !== 'confirmed') {
+            return redirect()
+                ->route('vendor.orders')
+                ->with('error', 'Only confirmed orders can be marked as shipped.');
+        }
+
+        $order->update(['status' => 'shipped']);
+
+        return redirect()
+            ->route('vendor.orders')
+            ->with('success', 'Order marked as shipped.');
+    }
+
+    /**
+     * Move a vendor-owned order from shipped to delivered.
+     */
+    public function markAsDelivered($id)
+    {
+        $order = $this->findVendorOrder($id);
+
+        if ($order->status !== 'shipped') {
+            return redirect()
+                ->route('vendor.orders')
+                ->with('error', 'Only shipped orders can be marked as delivered.');
+        }
+
+        $order->update(['status' => 'delivered']);
+
+        return redirect()
+            ->route('vendor.orders')
+            ->with('success', 'Order marked as delivered.');
+    }
+
+    /**
+     * Show all non-cart orders in the admin area.
+     */
     public function adminOrders()
     {
         $orders = Order::with('items.product.vendor.user')
-            ->where('status', 'confirmed')
+            ->where('status', '!=', 'pending')
             ->latest()
             ->get();
 
-        return view('orders.index', compact('orders'));
+        return view('orders.index', [
+            'orders' => $orders,
+            'pageTitle' => 'All Orders',
+        ]);
+    }
+
+    /**
+     * Fetch one order only if it contains the current vendor's products.
+     */
+    private function findVendorOrder($id): Order
+    {
+        $vendor = auth()->user()->vendorProfile;
+
+        return $this->vendorOrdersQuery($vendor->getKey())->findOrFail($id);
+    }
+
+    /**
+     * Base query used for vendor-owned orders and vendor-owned order items.
+     */
+    private function vendorOrdersQuery(int $vendorId)
+    {
+        return Order::whereHas('items.product', function ($query) use ($vendorId) {
+            $query->where('vendor_id', $vendorId);
+        })->with([
+            'items' => function ($query) use ($vendorId) {
+                $query->whereHas('product', function ($productQuery) use ($vendorId) {
+                    $productQuery->where('vendor_id', $vendorId);
+                })->with('product');
+            },
+        ]);
     }
 }

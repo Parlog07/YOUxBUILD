@@ -9,6 +9,9 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
+    /**
+     * Show the public marketplace with simple search and category filters.
+     */
     public function index(Request $request): View
     {
         $query = Product::with(['category', 'vendor.user'])->latest();
@@ -28,6 +31,9 @@ class ProductController extends Controller
         return view('products.index', compact('products', 'categories'));
     }
 
+    /**
+     * Show one public product page.
+     */
     public function show(string $id): View
     {
         $product = Product::with(['category', 'vendor.user'])->findOrFail($id);

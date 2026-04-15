@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\VendorProfile;
-use Illuminate\Http\Request;
 
 class VendorController extends Controller
 {
+    /**
+     * Create a pending vendor request for the authenticated user.
+     */
     public function requestVendor()
     {
         $user = auth()->user();

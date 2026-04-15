@@ -9,6 +9,18 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 space-y-4">
+                    @if (session('success'))
+                        <p class="text-green-600">{{ session('success') }}</p>
+                    @endif
+
+                    @if ($errors->any())
+                        <div class="text-red-600">
+                            @foreach ($errors->all() as $error)
+                                <p>{{ $error }}</p>
+                            @endforeach
+                        </div>
+                    @endif
+
                     <div>
                         <h3 class="text-2xl font-semibold">{{ $product->name }}</h3>
                         <p class="text-lg font-medium mt-2">${{ number_format($product->price, 2) }}</p>
@@ -25,7 +37,7 @@
                         <p class="text-gray-700">{{ $product->description }}</p>
                     </div>
 
-                    <form method="POST" action="/cart/add" class="space-y-4">
+                    <form method="POST" action="{{ route('cart.add') }}" class="space-y-4">
                         @csrf
                         <input type="hidden" name="product_id" value="{{ $product->id }}">
 

@@ -1,85 +1,56 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProductController as PublicProductController;
-use App\Http\Controllers\VendorController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\Vendor\ProductController as VendorProductController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminVendorController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController as PublicProductController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Vendor\ProductController as VendorProductController;
+use App\Http\Controllers\VendorController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware('auth')->name('dashboard');
 
 Route::get('/products', [PublicProductController::class, 'index'])->name('products.index');
 Route::get('/products/{id}', [PublicProductController::class, 'show'])->name('products.show');
 
 Route::middleware('auth')->group(function () {
+    // Profile management for signed-in users.
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-Route::middleware('auth')->group(function () {
 
+    // Cart and client order actions.
     Route::get('/cart', [OrderController::class, 'index'])->name('cart.index');
-
     Route::post('/cart/add', [OrderController::class, 'addToCart'])->name('cart.add');
-
     Route::post('/cart/update/{id}', [OrderController::class, 'updateItem'])->name('cart.update');
-
     Route::delete('/cart/remove/{id}', [OrderController::class, 'removeItem'])->name('cart.remove');
-
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
+    Route::get('/my-orders', [OrderController::class, 'myOrders'])->name('orders.index');
+
+    // Vendor request flow.
+    Route::post('/become-vendor', [VendorController::class, 'requestVendor'])->name('vendor.request');
 });
-Route::get('/my-orders', [OrderController::class, 'myOrders'])
-    ->name('orders.index')
-    ->middleware('auth');
-
-    Route::get('/', function () {
-    return view('welcome'); // or homepage
-})->name('home');
-
-Route::get('/vendor/orders', [OrderController::class, 'vendorOrders'])
-    ->name('vendor.orders')
-    ->middleware('auth');
-Route::get('/admin/orders', [OrderController::class, 'adminOrders'])
-    ->name('admin.orders')
-    ->middleware('auth');
-
-Route::middleware(['role:admin'])->group(function () {
-    Route::get('/admin/vendors', [AdminVendorController::class, 'index']);
-    });
-
-Route::post('/become-vendor', [VendorController::class, 'requestVendor'])
-    ->middleware('auth')
-    ->name('vendor.request');
 
 Route::middleware(['auth', 'role:vendor'])->prefix('vendor')->group(function () {
+    // Vendors manage only their own products and orders.
     Route::resource('products', VendorProductController::class)->names('vendor.products');
+    Route::get('/orders', [OrderController::class, 'vendorOrders'])->name('vendor.orders');
+    Route::post('/orders/{id}/ship', [OrderController::class, 'markAsShipped'])->name('vendor.orders.ship');
+    Route::post('/orders/{id}/deliver', [OrderController::class, 'markAsDelivered'])->name('vendor.orders.deliver');
 });
+
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
-
-    Route::get('/vendors', [AdminVendorController::class, 'index']);
-
-    Route::post('/vendors/{id}/approve', [AdminVendorController::class, 'approve']);
-
-    Route::post('/vendors/{id}/reject', [AdminVendorController::class, 'reject']);
+    // Admin oversight routes.
+    Route::get('/orders', [OrderController::class, 'adminOrders'])->name('admin.orders');
+    Route::get('/vendors', [AdminVendorController::class, 'index'])->name('admin.vendors.index');
+    Route::post('/vendors/{id}/approve', [AdminVendorController::class, 'approve'])->name('admin.vendors.approve');
+    Route::post('/vendors/{id}/reject', [AdminVendorController::class, 'reject'])->name('admin.vendors.reject');
 });
+
 require __DIR__.'/auth.php';
-
-
-
-
-
-
-
-
-    // $user = \App\Models\User::find();
-    // $user->role = 'admin';
-    // $user->save();
-    //php artisan tinker --execute="\App\Models\User::where('email', 'ayoub@gmail.com')->update(['role' => 'admin']);"
