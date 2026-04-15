@@ -54,9 +54,15 @@
                                     <p class="text-sm text-gray-600">
                                         Sold by: {{ $product->vendor?->user?->full_name ?? $product->vendor?->user?->email ?? 'Unknown vendor' }}
                                     </p>
-                                    <a href="{{ route('products.show', $product->id) }}" class="text-blue-600 hover:underline">
-                                        View Details
-                                    </a>
+                                    @auth
+                                        <a href="{{ route('products.show', $product->id) }}" class="text-blue-600 hover:underline">
+                                            View Details
+                                        </a>
+                                    @else
+                                        <a href="{{ route('login') }}" class="text-blue-600 hover:underline">
+                                            Login to view details
+                                        </a>
+                                    @endauth
                                 </div>
                             @endforeach
                         </div>

@@ -17,7 +17,9 @@ Route::get('/dashboard', function () {
 })->middleware('auth')->name('dashboard');
 
 Route::get('/products', [PublicProductController::class, 'index'])->name('products.index');
-Route::get('/products/{id}', [PublicProductController::class, 'show'])->name('products.show');
+Route::get('/products/{id}', [PublicProductController::class, 'show'])
+    ->middleware('auth')
+    ->name('products.show');
 
 Route::middleware('auth')->group(function () {
     // Profile management for signed-in users.
