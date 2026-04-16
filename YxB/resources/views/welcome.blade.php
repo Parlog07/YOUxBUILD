@@ -64,6 +64,7 @@
                                 Product details and ordering are protected so users authenticate before purchasing.
                             </p>
                         </div>
+                        <div class="sketchfab-embed-wrapper"> <iframe title="CUSTOM GAMING PC (FBX file)" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="640" height="480" src="https://sketchfab.com/models/00bb790319c045058290dfbb4873f3ac/embed?autospin=1&autostart=1&transparent=1&dnt=1"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/custom-gaming-pc-fbx-file-00bb790319c045058290dfbb4873f3ac?utm_medium=embed&utm_campaign=share-popup&utm_content=00bb790319c045058290dfbb4873f3ac" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> CUSTOM GAMING PC (FBX file) </a> by <a href="https://sketchfab.com/Yolala3d?utm_medium=embed&utm_campaign=share-popup&utm_content=00bb790319c045058290dfbb4873f3ac" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Yolala3D | Y3D </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=00bb790319c045058290dfbb4873f3ac" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
 
                         
                     </div>
