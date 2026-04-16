@@ -63,7 +63,7 @@
                     <!-- Image Area -->
                     <div class="w-full aspect-[4/3] bg-gradient-to-b from-white/5 to-transparent relative flex items-center justify-center p-8 overflow-hidden rounded-t-3xl">
                         <div class="absolute inset-0 bg-premium-gold/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?q=80&w=400&auto=format&fit=crop" 
+                        <img src="{{ $product->image_url ?? 'https://images.unsplash.com/photo-1587202376732-8309058b74a4?q=80&w=400&auto=format&fit=crop' }}" 
                              alt="{{ $product->name }}" 
                              class="relative z-10 w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 drop-shadow-2xl brightness-90 group-hover:brightness-110">
                     </div>

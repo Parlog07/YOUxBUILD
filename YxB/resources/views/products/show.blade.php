@@ -36,7 +36,7 @@
             <!-- Left: Floating Image Space -->
             <div class="w-full lg:w-1/2 bg-gradient-to-br from-white/5 to-transparent flex items-center justify-center p-12 border-b lg:border-b-0 lg:border-r border-white/5 relative group">
                 <div class="absolute inset-0 bg-premium-gold/5 blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-700"></div>
-                <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?q=80&w=800&auto=format&fit=crop" 
+                <img src="{{ $product->image_url ?? 'https://images.unsplash.com/photo-1587202376732-8309058b74a4?q=80&w=800&auto=format&fit=crop' }}" 
                      alt="{{ $product->name }}" 
                      class="w-full h-full object-contain max-h-[500px] relative z-10 brightness-90 drop-shadow-2xl hover:scale-105 transition-transform duration-700">
             </div>
