@@ -17,6 +17,7 @@
 
             if ($user->role === 'vendor' && $user->vendorProfile?->status === 'approved') {
                 $links[] = ['label' => 'My Products', 'route' => 'vendor.products.index'];
+                $links[] = ['label' => 'Build PC', 'route' => 'vendor.products.prebuilt.create'];
                 $links[] = ['label' => 'Vendor Orders', 'route' => 'vendor.orders'];
             }
 

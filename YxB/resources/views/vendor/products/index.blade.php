@@ -5,10 +5,17 @@
                 My Component Supply
             </h2>
 
-            <a href="{{ route('vendor.products.create') }}" class="px-6 py-3 bg-white/5 border border-white/10 text-white hover:bg-premium-gold hover:text-black hover:border-transparent font-heading font-bold text-xs uppercase tracking-widest rounded-xl transition-all shadow-glow-subtle hover:shadow-glow-gold flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                Deploy New Hardware
-            </a>
+            <div class="flex items-center gap-3">
+                <a href="{{ route('vendor.products.prebuilt.create') }}" class="px-6 py-3 bg-gradient-to-r from-premium-gold to-yellow-600 text-premium-black hover:scale-[1.02] font-heading font-bold text-xs uppercase tracking-widest rounded-xl transition-all shadow-glow-gold flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"></path></svg>
+                    Launch Prebuilt PC
+                </a>
+
+                <a href="{{ route('vendor.products.create') }}" class="px-6 py-3 bg-white/5 border border-white/10 text-white hover:bg-premium-gold hover:text-black hover:border-transparent font-heading font-bold text-xs uppercase tracking-widest rounded-xl transition-all shadow-glow-subtle hover:shadow-glow-gold flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                    Deploy New Hardware
+                </a>
+            </div>
         </div>
     </x-slot>
 
@@ -37,9 +44,15 @@
                         <h3 class="font-heading font-bold text-xl text-white uppercase tracking-widest mb-3">No Active Inventory</h3>
                         <p class="text-premium-gray font-sans max-w-sm leading-relaxed mb-8">You have not deployed any hardware components to the global marketplace database.</p>
                         
-                        <a href="{{ route('vendor.products.create') }}" class="px-8 py-4 bg-gradient-to-r from-premium-gold to-yellow-600 text-premium-black font-heading font-bold text-xs uppercase tracking-widest rounded-xl hover:scale-[1.02] transition-all shadow-glow-gold flex items-center gap-2">
-                            Deploy First Component
-                        </a>
+                        <div class="flex flex-wrap items-center justify-center gap-4">
+                            <a href="{{ route('vendor.products.prebuilt.create') }}" class="px-8 py-4 bg-gradient-to-r from-premium-gold to-yellow-600 text-premium-black font-heading font-bold text-xs uppercase tracking-widest rounded-xl hover:scale-[1.02] transition-all shadow-glow-gold flex items-center gap-2">
+                                Launch First Prebuilt PC
+                            </a>
+
+                            <a href="{{ route('vendor.products.create') }}" class="px-8 py-4 bg-white/5 border border-white/10 text-white font-heading font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-white hover:text-black transition-all flex items-center gap-2">
+                                Deploy First Component
+                            </a>
+                        </div>
                     </div>
                 @else
                     <div class="overflow-x-auto">

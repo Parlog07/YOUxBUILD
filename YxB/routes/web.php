@@ -45,6 +45,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:vendor'])->prefix('vendor')->group(function () {
     // Vendors manage only their own products and orders.
+    Route::get('/prebuilt-pcs/create', [VendorProductController::class, 'createPrebuilt'])->name('vendor.products.prebuilt.create');
+    Route::post('/prebuilt-pcs', [VendorProductController::class, 'storePrebuilt'])->name('vendor.products.prebuilt.store');
     Route::resource('products', VendorProductController::class)->names('vendor.products');
     Route::get('/orders', [OrderController::class, 'vendorOrders'])->name('vendor.orders');
     Route::post('/orders/{id}/ship', [OrderController::class, 'markAsShipped'])->name('vendor.orders.ship');
