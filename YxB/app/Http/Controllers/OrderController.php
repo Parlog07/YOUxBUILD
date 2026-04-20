@@ -151,6 +151,32 @@ class OrderController extends Controller
             ->with('success', 'Order confirmed');
     }
 
+    public function payment()
+    {
+        $order = Order::where('client_id', auth()->id())
+            ->where('status', 'pending')
+            ->with('items.product')
+            ->firstOrFail();
+
+        return view('orders.payment', compact('order'));
+    }
+
+    public function confirmPayment()
+    {
+        $order = Order::where('client_id', auth()->id())
+            ->where('status', 'pending')
+            ->firstOrFail();
+
+        $order->update([
+            'status' => 'confirmed',
+            'ordered_at' => now(),
+        ]);
+
+        return redirect()
+            ->route('orders.index')
+            ->with('success', 'Payment successful, order confirmed.');
+    }
+
     /**
      * Recalculate the total amount from the current order items.
      */

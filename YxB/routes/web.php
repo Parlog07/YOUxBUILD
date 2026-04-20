@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AdminVendorController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController as PublicProductController;
@@ -17,6 +18,7 @@ Route::get('/dashboard', function () {
 })->middleware('auth')->name('dashboard');
 
 Route::get('/products', [PublicProductController::class, 'index'])->name('products.index');
+Route::get('/prebuilt-pcs', [PublicProductController::class, 'prebuilt'])->name('products.prebuilt');
 Route::get('/products/{id}', [PublicProductController::class, 'show'])
     ->middleware('auth')
     ->name('products.show');
@@ -32,6 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/add', [OrderController::class, 'addToCart'])->name('cart.add');
     Route::post('/cart/update/{id}', [OrderController::class, 'updateItem'])->name('cart.update');
     Route::delete('/cart/remove/{id}', [OrderController::class, 'removeItem'])->name('cart.remove');
+    Route::get('/payment', [OrderController::class, 'payment'])->name('payment.page');
+    Route::post('/payment/confirm', [OrderController::class, 'confirmPayment'])->name('payment.confirm');
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
     Route::get('/my-orders', [OrderController::class, 'myOrders'])->name('orders.index');
 
@@ -53,6 +57,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/vendors', [AdminVendorController::class, 'index'])->name('admin.vendors.index');
     Route::post('/vendors/{id}/approve', [AdminVendorController::class, 'approve'])->name('admin.vendors.approve');
     Route::post('/vendors/{id}/reject', [AdminVendorController::class, 'reject'])->name('admin.vendors.reject');
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+    Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 });
 
 require __DIR__.'/auth.php';

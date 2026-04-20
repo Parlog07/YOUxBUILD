@@ -7,6 +7,7 @@
             $links = [
                 ['label' => 'Dashboard', 'route' => 'dashboard'],
                 ['label' => 'Products', 'route' => 'products.index'],
+                ['label' => 'Prebuilt PCs', 'route' => 'products.prebuilt'],
             ];
 
             if ($user->role === 'client') {
@@ -21,12 +22,14 @@
 
             if ($user->role === 'admin') {
                 $links[] = ['label' => 'Admin Orders', 'route' => 'admin.orders'];
+                $links[] = ['label' => 'Categories', 'route' => 'categories.index'];
                 $links[] = ['label' => 'Vendor Requests', 'route' => 'admin.vendors.index'];
             }
         } else {
             $links = [
                 ['label' => 'Home', 'route' => 'home'],
                 ['label' => 'Products', 'route' => 'products.index'],
+                ['label' => 'Prebuilt PCs', 'route' => 'products.prebuilt'],
                 ['label' => 'Login', 'route' => 'login'],
                 ['label' => 'Register', 'route' => 'register'],
             ];

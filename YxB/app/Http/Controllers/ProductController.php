@@ -40,4 +40,16 @@ class ProductController extends Controller
 
         return view('products.show', compact('product'));
     }
+
+    public function prebuilt(): View
+    {
+        $products = Product::with(['category', 'vendor.user'])
+            ->whereHas('category', function ($query) {
+                $query->where('name', 'Prebuilt PCs');
+            })
+            ->latest()
+            ->get();
+
+        return view('products.prebuilt', compact('products'));
+    }
 }

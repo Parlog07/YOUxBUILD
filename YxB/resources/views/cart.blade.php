@@ -109,13 +109,10 @@
                                 </span>
                             </div>
 
-                            <form action="{{ route('cart.checkout') }}" method="POST" class="w-full">
-                                @csrf
-                                <button type="submit" class="w-full px-8 py-4 bg-gradient-to-r from-premium-gold to-yellow-600 text-premium-black hover:scale-[1.02] font-heading font-bold text-sm uppercase tracking-widest rounded-xl transition-all flex justify-center items-center gap-3 shadow-glow-gold">
-                                    Authorize Procurement
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                </button>
-                            </form>
+                            <a href="{{ route('payment.page') }}" class="w-full px-8 py-4 bg-gradient-to-r from-premium-gold to-yellow-600 text-premium-black hover:scale-[1.02] font-heading font-bold text-sm uppercase tracking-widest rounded-xl transition-all flex justify-center items-center gap-3 shadow-glow-gold">
+                                Proceed to Payment
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </a>
                         </div>
                     </div>
 
