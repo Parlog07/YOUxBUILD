@@ -14,7 +14,12 @@ class ProductController extends Controller
      */
     public function index(Request $request): View
     {
-        $query = Product::with(['category', 'vendor.user'])->latest();
+        $query = Product::with(['category', 'vendor.user'])
+            ->where('product_type', '!=', 'prebuilt_pc')
+            ->whereDoesntHave('category', function ($query) {
+                $query->where('name', 'Prebuilt PCs');
+            })
+            ->latest();
 
         if ($request->category) {
             $query->where('category_id', $request->category);
@@ -26,7 +31,7 @@ class ProductController extends Controller
 
         $products = $query->get();
 
-        $categories = Category::all();
+        $categories = Category::where('name', '!=', 'Prebuilt PCs')->get();
 
         return view('products.index', compact('products', 'categories'));
     }
