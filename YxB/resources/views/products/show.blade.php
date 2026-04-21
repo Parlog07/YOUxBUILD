@@ -20,7 +20,7 @@
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
-            </div>
+            </div> 
         @endif
 
         <!-- Premium Dual Column Layout -->
