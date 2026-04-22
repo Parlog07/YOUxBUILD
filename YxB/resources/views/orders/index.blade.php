@@ -1,11 +1,8 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-heading font-extrabold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-premium-goldLight to-premium-gold uppercase tracking-widest leading-tight">
+    <div class="max-w-5xl mx-auto sm:px-6 lg:px-8 py-12 relative z-10 w-full">
+        <h2 class="font-heading font-extrabold text-3xl text-transparent bg-clip-text bg-gradient-to-r from-premium-goldLight to-premium-gold uppercase tracking-widest leading-tight mb-8">
             {{ $pageTitle ?? 'Procurement Logs' }}
         </h2>
-    </x-slot>
-
-    <div class="max-w-5xl mx-auto sm:px-6 lg:px-8 py-12 relative z-10 w-full">
         <div class="bg-premium-card/60 backdrop-blur-xl shadow-glow-subtle border border-white/5 rounded-3xl overflow-hidden relative">
             <div class="p-8 border-b border-white/5 bg-premium-black/50 relative overflow-hidden">
                 <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-premium-silver/50 to-transparent"></div>

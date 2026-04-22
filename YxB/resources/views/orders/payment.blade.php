@@ -1,17 +1,14 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <h2 class="font-heading font-extrabold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-premium-goldLight to-premium-gold uppercase tracking-widest leading-tight">
+    <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 py-16 relative z-10 w-full">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-heading font-extrabold text-3xl text-transparent bg-clip-text bg-gradient-to-r from-premium-goldLight to-premium-gold uppercase tracking-widest leading-tight">
                 {{ __('Secure Authorization') }}
             </h2>
-            <a href="{{ route('cart.index') }}" class="text-premium-silver hover:text-white font-sans text-sm font-medium transition-colors flex items-center gap-2">
+            <a href="{{ route('cart.index') }}" class="text-premium-silver hover:text-white font-sans text-xs font-bold uppercase tracking-widest transition-colors flex items-center gap-2 bg-white/5 px-4 py-2 rounded-xl border border-white/10">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Modify Cart
             </a>
         </div>
-    </x-slot>
-
-    <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 py-16 relative z-10 w-full">
         
         <div class="bg-premium-card/60 backdrop-blur-xl shadow-glow-subtle border border-white/5 rounded-3xl overflow-hidden relative">
             

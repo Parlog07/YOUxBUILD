@@ -1,11 +1,8 @@
-    <x-app-layout>
-        <x-slot name="header">
-            <h2 class="font-heading font-extrabold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-premium-goldLight to-premium-gold uppercase tracking-widest leading-tight">
-                {{ __('Command Center') }}
-            </h2>
-        </x-slot>
-
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12 relative z-10 w-full">
+<x-app-layout>
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12 relative z-10 w-full">
+        <h2 class="font-heading font-extrabold text-3xl text-transparent bg-clip-text bg-gradient-to-r from-premium-goldLight to-premium-gold uppercase tracking-widest leading-tight mb-8">
+            {{ __('Command Center') }}
+        </h2>
             
             @if (session('success'))
                 <div class="mb-8 rounded-xl border border-premium-gold/30 bg-premium-gold/10 p-4 font-sans text-premium-goldLight font-semibold text-sm flex items-center gap-3 backdrop-blur-md">

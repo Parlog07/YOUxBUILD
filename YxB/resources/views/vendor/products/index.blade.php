@@ -1,11 +1,11 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <h2 class="font-heading font-extrabold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-premium-goldLight to-premium-gold uppercase tracking-widest leading-tight">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12 relative z-10 w-full">
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6">
+            <h2 class="font-heading font-extrabold text-3xl text-transparent bg-clip-text bg-gradient-to-r from-premium-goldLight to-premium-gold uppercase tracking-widest leading-tight">
                 My Component Supply
             </h2>
 
-            <div class="flex items-center gap-3">
+            <div class="flex flex-wrap items-center gap-4">
                 <a href="{{ route('vendor.products.prebuilt.create') }}" class="px-6 py-3 bg-gradient-to-r from-premium-gold to-yellow-600 text-premium-black hover:scale-[1.02] font-heading font-bold text-xs uppercase tracking-widest rounded-xl transition-all shadow-glow-gold flex items-center gap-2">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"></path></svg>
                     Launch Prebuilt PC
@@ -17,9 +17,6 @@
                 </a>
             </div>
         </div>
-    </x-slot>
-
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12 relative z-10 w-full">
         
         <div class="bg-premium-card/60 backdrop-blur-xl shadow-glow-subtle border border-white/5 rounded-3xl overflow-hidden relative">
             <div class="p-8 border-b border-white/5 bg-premium-black/50 relative overflow-hidden">
