@@ -1,58 +1,115 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# YOUxBUILD – PC Components Marketplace
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 📌 Project Overview
 
-## About Laravel
+YOUxBUILD is a web-based marketplace for buying and selling PC components and prebuilt computers.
+The platform allows users to browse products, add them to a cart, and place orders, while vendors can manage their own products.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This project was developed as a **final year project (Projet Fil Rouge)** using Laravel.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🚀 Features
 
-## Learning Laravel
+### 👤 Client
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+* Register and login
+* Browse products
+* Search and filter by category
+* View product details
+* Add products to cart
+* Checkout with payment simulation
+* View order history
+* Track order status (confirmed, shipped, delivered)
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### 🧑‍💼 Vendor
 
-## Agentic Development
+* Request vendor account (admin approval required)
+* Add, edit, and delete products
+* Manage their own products only
+* View orders related to their products
+* Update order status
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
 
-```bash
-composer require laravel/boost --dev
+### 🛠 Admin
 
-php artisan boost:install
+* Approve or reject vendors
+* Manage categories (add / delete)
+* View all orders
+* Manage users and platform data
+
+---
+
+## 🛒 Marketplace Flow
+
+```text
+User → Browse Products → Add to Cart → Payment → Order Confirmation → Delivery Tracking
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## 🧠 Architecture
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* Laravel (Blade, MVC)
+* Role-based access control (visitor, client, vendor, admin)
+* Orders system used as cart (status = pending)
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🗂️ Main Features Implemented
 
-## Security Vulnerabilities
+* Authentication system
+* Vendor approval system
+* Product management (CRUD)
+* Public marketplace (listing + details)
+* Cart system (via orders)
+* Payment simulation step
+* Order lifecycle (confirmed → shipped → delivered)
+* Search and category filtering
+* Admin dashboard features
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## 🧱 Tech Stack
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+* Backend: Laravel (PHP)
+* Frontend: Blade, HTML, CSS, JavaScript
+* Database: MySQL
+* Version Control: Git & GitHub
+
+---
+
+## 📱 Responsive Design
+
+The application is fully responsive and works on desktop and mobile devices.
+
+---
+
+## ⚠️ Important Notes
+
+* The platform does NOT provide compatibility checking between components
+* No automatic product recommendations
+* Users are responsible for their own configuration choices
+
+---
+
+## 📊 Project Status
+
+✔ Core features completed
+✔ CDC (Cahier des Charges) requirements respected
+✔ Additional features implemented (vendor system, order tracking)
+
+---
+
+## 🧑‍💻 Author
+
+* Ayoub Amine (Parlog)
+
+---
+
+## 📎 License
+
+This project is for educational purposes.
