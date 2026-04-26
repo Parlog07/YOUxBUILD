@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\OrderStatus;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -9,7 +10,12 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    private const VENDOR_VISIBLE_STATUSES = ['confirmed', 'shipped', 'delivered', 'cancelled'];
+    private const VENDOR_VISIBLE_STATUSES = [
+        OrderStatus::CONFIRMED->value,
+        OrderStatus::SHIPPED->value,
+        OrderStatus::DELIVERED->value,
+        OrderStatus::CANCELLED->value,
+    ];
 
     /**
      * Show the current user's pending cart.
@@ -18,7 +24,7 @@ class OrderController extends Controller
     {
         $order = Order::with('items.product')
             ->where('client_id', auth()->id())
-            ->where('status', 'pending')
+            ->where('status', OrderStatus::PENDING->value)
             ->first();
 
         return view('cart', compact('order'));
@@ -32,7 +38,7 @@ class OrderController extends Controller
         return Order::firstOrCreate(
             [
                 'client_id' => $user->id,
-                'status' => 'pending'
+                'status' => OrderStatus::PENDING->value,
             ],
             [
                 'order_reference' => 'ORD-' . strtoupper(uniqid()),
@@ -124,7 +130,7 @@ class OrderController extends Controller
     {
         $order = Order::with('items.product')
             ->where('client_id', auth()->id())
-            ->where('status', 'pending')
+            ->where('status', OrderStatus::PENDING->value)
             ->first();
 
         return response()->json($order);
@@ -136,14 +142,14 @@ class OrderController extends Controller
     public function checkout()
     {
         $order = Order::where('client_id', auth()->id())
-            ->where('status', 'pending')
+            ->where('status', OrderStatus::PENDING->value)
             ->firstOrFail();
 
         if ($order->items->isEmpty()) {
             return redirect()->back()->with('error', 'Cart is empty');
         }
 
-        $order->status = 'confirmed';
+        $order->status = OrderStatus::CONFIRMED->value;
         $order->ordered_at = now();
         $order->save();
 
@@ -154,7 +160,7 @@ class OrderController extends Controller
     public function payment()
     {
         $order = Order::where('client_id', auth()->id())
-            ->where('status', 'pending')
+            ->where('status', OrderStatus::PENDING->value)
             ->with('items.product')
             ->firstOrFail();
 
@@ -164,11 +170,11 @@ class OrderController extends Controller
     public function confirmPayment()
     {
         $order = Order::where('client_id', auth()->id())
-            ->where('status', 'pending')
+            ->where('status', OrderStatus::PENDING->value)
             ->firstOrFail();
 
         $order->update([
-            'status' => 'confirmed',
+            'status' => OrderStatus::CONFIRMED->value,
             'ordered_at' => now(),
         ]);
 
@@ -182,12 +188,7 @@ class OrderController extends Controller
      */
     private function updateTotal($order)
     {
-        $total = $order->items->sum(function ($item) {
-            return $item->unit_price * $item->quantity;
-        });
-
-        $order->total_amount = $total;
-        $order->save();
+        $order->syncTotalAmount();
     }
 
     /**
@@ -197,7 +198,7 @@ class OrderController extends Controller
     {
         $orders = Order::with('items.product')
             ->where('client_id', auth()->id())
-            ->where('status', '!=', 'pending')
+            ->where('status', '!=', OrderStatus::PENDING->value)
             ->latest()
             ->get();
 
@@ -232,13 +233,13 @@ class OrderController extends Controller
     {
         $order = $this->findVendorOrder($id);
 
-        if ($order->status !== 'confirmed') {
+        if ($order->status !== OrderStatus::CONFIRMED->value) {
             return redirect()
                 ->route('vendor.orders')
                 ->with('error', 'Only confirmed orders can be marked as shipped.');
         }
 
-        $order->update(['status' => 'shipped']);
+        $order->update(['status' => OrderStatus::SHIPPED->value]);
 
         return redirect()
             ->route('vendor.orders')
@@ -252,13 +253,13 @@ class OrderController extends Controller
     {
         $order = $this->findVendorOrder($id);
 
-        if ($order->status !== 'shipped') {
+        if ($order->status !== OrderStatus::SHIPPED->value) {
             return redirect()
                 ->route('vendor.orders')
                 ->with('error', 'Only shipped orders can be marked as delivered.');
         }
 
-        $order->update(['status' => 'delivered']);
+        $order->update(['status' => OrderStatus::DELIVERED->value]);
 
         return redirect()
             ->route('vendor.orders')
@@ -271,7 +272,7 @@ class OrderController extends Controller
     public function adminOrders()
     {
         $orders = Order::with('items.product.vendor.user')
-            ->where('status', '!=', 'pending')
+            ->where('status', '!=', OrderStatus::PENDING->value)
             ->latest()
             ->get();
 

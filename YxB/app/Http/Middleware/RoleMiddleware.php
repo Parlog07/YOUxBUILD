@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\VendorApprovalStatus;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +23,7 @@ class RoleMiddleware
         }
 
         if ($role === 'vendor') {
-            if (!$user->vendorProfile || $user->vendorProfile->status !== 'approved') {
+            if (!$user->vendorProfile || $user->vendorProfile->status !== VendorApprovalStatus::APPROVED->value) {
                 abort(403);
             }
         }

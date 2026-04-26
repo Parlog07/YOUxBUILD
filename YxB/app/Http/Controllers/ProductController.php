@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProductType;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class ProductController extends Controller
     public function index(Request $request): View
     {
         $query = Product::with(['category', 'vendor.user'])
-            ->where('product_type', '!=', 'prebuilt_pc')
+            ->where('product_type', '!=', ProductType::PREBUILT_PC->value)
             ->whereDoesntHave('category', function ($query) {
                 $query->where('name', 'Prebuilt PCs');
             })

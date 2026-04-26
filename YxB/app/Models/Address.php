@@ -17,9 +17,17 @@ class Address extends Model
 
     public $timestamps = false;
 
-    public function user()
+    /**
+     * client_id keeps the legacy name, but the owning model is App\Models\User.
+     */
+    public function client()
     {
         return $this->belongsTo(User::class, 'client_id');
+    }
+
+    public function user()
+    {
+        return $this->client();
     }
 
     public function orders()

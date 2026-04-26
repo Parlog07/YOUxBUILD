@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\VendorApprovalStatus;
 use App\Http\Controllers\Controller;
 use App\Models\VendorProfile;
 
@@ -24,7 +25,7 @@ class AdminVendorController extends Controller
     {
         $vendor = VendorProfile::findOrFail($id);
 
-        $vendor->update(['status' => 'approved']);
+        $vendor->update(['status' => VendorApprovalStatus::APPROVED->value]);
 
         $vendor->user->update(['role' => 'vendor']);
 
@@ -38,7 +39,7 @@ class AdminVendorController extends Controller
     {
         $vendor = VendorProfile::findOrFail($id);
 
-        $vendor->update(['status' => 'rejected']);
+        $vendor->update(['status' => VendorApprovalStatus::REJECTED->value]);
 
         return back()->with('success', 'Vendor rejected successfully.');
     }

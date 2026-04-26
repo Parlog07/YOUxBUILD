@@ -16,6 +16,8 @@ class Delivery extends Model
 
     public $timestamps = false;
 
+    // Reserved for the future shipping/delivery workflow.
+
     public function order()
     {
         return $this->belongsTo(Order::class);

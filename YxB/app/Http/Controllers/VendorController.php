@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\VendorApprovalStatus;
 use App\Models\VendorProfile;
 
 class VendorController extends Controller
@@ -19,7 +20,7 @@ class VendorController extends Controller
 
         VendorProfile::create([
             'vendor_id' => $user->id,
-            'status' => 'pending',
+            'status' => VendorApprovalStatus::PENDING->value,
         ]);
 
         return back()->with('success', 'Request sent');

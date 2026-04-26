@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Vendor;
 
+use App\Enums\ProductAvailabilityStatus;
+use App\Enums\ProductType;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class ProductController extends Controller
@@ -76,7 +79,7 @@ class ProductController extends Controller
             'stock_quantity' => $data['stock_quantity'],
             'availability_status' => $data['availability_status'],
             'image_url' => $data['image_url'] ?: null,
-            'product_type' => 'prebuilt_pc',
+            'product_type' => ProductType::PREBUILT_PC->value,
         ]);
 
         return redirect()
@@ -161,9 +164,9 @@ class ProductController extends Controller
             'category_id' => ['required', 'exists:categories,id'],
             'technical_specs' => ['nullable', 'string'],
             'stock_quantity' => ['required', 'integer', 'min:0'],
-            'availability_status' => ['required', 'string', 'max:255'],
+            'availability_status' => ['required', Rule::in(ProductAvailabilityStatus::values())],
             'image_url' => ['nullable', 'url', 'max:255'],
-            'product_type' => ['required', 'string', 'max:255'],
+            'product_type' => ['required', Rule::in(ProductType::values())],
         ]);
     }
 
@@ -176,7 +179,7 @@ class ProductController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric', 'min:0'],
             'stock_quantity' => ['required', 'integer', 'min:0'],
-            'availability_status' => ['required', 'string', 'max:255'],
+            'availability_status' => ['required', Rule::in(ProductAvailabilityStatus::values())],
             'image_url' => ['nullable', 'url', 'max:255'],
             'cpu' => ['required', 'string', 'max:255'],
             'gpu' => ['nullable', 'string', 'max:255'],
