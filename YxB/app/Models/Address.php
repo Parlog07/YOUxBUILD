@@ -12,6 +12,8 @@ class Address extends Model
         'city',
         'postal_code',
         'country',
+        'phone_number',
+        'email',
         'is_default',
     ];
 

@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-orders', [OrderController::class, 'myOrders'])->name('orders.index');
 
     // Vendor request flow.
+    Route::get('/become-vendor', [VendorController::class, 'create'])->name('vendor.request.form');
     Route::post('/become-vendor', [VendorController::class, 'requestVendor'])->name('vendor.request');
 });
 

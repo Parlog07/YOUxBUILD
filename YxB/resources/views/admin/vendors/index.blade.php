@@ -36,7 +36,11 @@
                             <thead>
                                 <tr class="text-premium-silver font-heading font-bold text-xs uppercase tracking-widest border-b border-white/10">
                                     <th class="py-4 pl-4">Network ID</th>
+                                    <th class="py-4">User</th>
                                     <th class="py-4">Contact Gateway</th>
+                                    <th class="py-4">Store Name</th>
+                                    <th class="py-4">Business Address</th>
+                                    <th class="py-4">Store Description</th>
                                     <th class="py-4">Clearance Status</th>
                                     <th class="py-4 text-right pr-4">Action Protocols</th>
                                 </tr>
@@ -48,7 +52,19 @@
                                             #{{ str_pad($vendor->vendor_id, 4, '0', STR_PAD_LEFT) }}
                                         </td>
                                         <td class="py-4 font-medium text-white">
+                                            <div>{{ $vendor->user?->full_name ?? 'N/A' }}</div>
+                                        </td>
+                                        <td class="py-4 font-medium text-white">
                                             {{ $vendor->user?->email ?? 'N/A' }}
+                                        </td>
+                                        <td class="py-4 text-premium-silver">
+                                            {{ $vendor->store_name ?: 'N/A' }}
+                                        </td>
+                                        <td class="py-4 text-premium-silver">
+                                            {{ $vendor->business_address ?: 'N/A' }}
+                                        </td>
+                                        <td class="py-4 text-premium-silver max-w-xs">
+                                            <p class="line-clamp-3">{{ $vendor->store_description ?: 'No description provided.' }}</p>
                                         </td>
                                         <td class="py-4">
                                             @if($vendor->status === 'approved')
@@ -66,6 +82,15 @@
                                             @endif
                                         </td>
                                         <td class="py-4 pr-4">
+                                            <div class="bg-premium-black/30 border border-white/10 rounded-xl p-3 mb-3 text-left text-xs font-sans text-premium-silver space-y-1">
+                                                <p><span class="text-premium-gray">Name:</span> {{ $vendor->user?->full_name ?? 'N/A' }}</p>
+                                                <p><span class="text-premium-gray">Email:</span> {{ $vendor->user?->email ?? 'N/A' }}</p>
+                                                <p><span class="text-premium-gray">Store:</span> {{ $vendor->store_name ?: 'N/A' }}</p>
+                                                <p><span class="text-premium-gray">Address:</span> {{ $vendor->business_address ?: 'N/A' }}</p>
+                                                @if ($vendor->store_description)
+                                                    <p><span class="text-premium-gray">Description:</span> {{ $vendor->store_description }}</p>
+                                                @endif
+                                            </div>
                                             <div class="flex items-center justify-end gap-3">
                                                 @if ($vendor->status === 'pending')
                                                     <form action="{{ route('admin.vendors.approve', $vendor->vendor_id) }}" method="POST">

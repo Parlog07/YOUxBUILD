@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Enums\OrderStatus;
+use App\Models\Address;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -159,24 +161,52 @@ class OrderController extends Controller
 
     public function payment()
     {
+        $preferredAddress = auth()->user()
+            ->addresses()
+            ->orderByDesc('is_default')
+            ->orderByDesc('id')
+            ->first();
+
         $order = Order::where('client_id', auth()->id())
             ->where('status', OrderStatus::PENDING->value)
-            ->with('items.product')
+            ->with(['items.product', 'address'])
             ->firstOrFail();
 
-        return view('orders.payment', compact('order'));
+        return view('orders.payment', compact('order', 'preferredAddress'));
     }
 
-    public function confirmPayment()
+    public function confirmPayment(Request $request)
     {
+        $data = $request->validate([
+            'street' => ['required', 'string', 'max:255'],
+            'city' => ['required', 'string', 'max:255'],
+            'postal_code' => ['required', 'string', 'max:255'],
+            'country' => ['required', 'string', 'max:255'],
+            'phone_number' => ['required', 'string', 'max:20'],
+            'email' => ['required', 'email'],
+        ]);
+
         $order = Order::where('client_id', auth()->id())
             ->where('status', OrderStatus::PENDING->value)
             ->firstOrFail();
 
-        $order->update([
-            'status' => OrderStatus::CONFIRMED->value,
-            'ordered_at' => now(),
-        ]);
+        DB::transaction(function () use ($data, $order): void {
+            $address = Address::create([
+                'client_id' => auth()->id(),
+                'street' => $data['street'],
+                'city' => $data['city'],
+                'postal_code' => $data['postal_code'],
+                'country' => $data['country'],
+                'phone_number' => $data['phone_number'],
+                'email' => $data['email'],
+            ]);
+
+            $order->update([
+                'address_id' => $address->id,
+                'status' => OrderStatus::CONFIRMED->value,
+                'ordered_at' => now(),
+            ]);
+        });
 
         return redirect()
             ->route('orders.index')
@@ -196,7 +226,7 @@ class OrderController extends Controller
      */
     public function myOrders()
     {
-        $orders = Order::with('items.product')
+        $orders = Order::with(['items.product', 'client', 'address'])
             ->where('client_id', auth()->id())
             ->where('status', '!=', OrderStatus::PENDING->value)
             ->latest()
@@ -271,7 +301,7 @@ class OrderController extends Controller
      */
     public function adminOrders()
     {
-        $orders = Order::with('items.product.vendor.user')
+        $orders = Order::with(['items.product.vendor.user', 'client', 'address'])
             ->where('status', '!=', OrderStatus::PENDING->value)
             ->latest()
             ->get();
@@ -300,6 +330,8 @@ class OrderController extends Controller
         return Order::whereHas('items.product', function ($query) use ($vendorId) {
             $query->where('vendor_id', $vendorId);
         })->with([
+            'client',
+            'address',
             'items' => function ($query) use ($vendorId) {
                 $query->whereHas('product', function ($productQuery) use ($vendorId) {
                     $productQuery->where('vendor_id', $vendorId);

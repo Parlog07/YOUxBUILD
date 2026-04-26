@@ -57,6 +57,28 @@
                         </div>
 
                         <div class="space-y-3">
+                            @if (request()->routeIs('vendor.orders'))
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                    <div class="bg-premium-black/30 rounded-xl p-4 border border-white/5">
+                                        <h5 class="text-xs font-heading font-bold text-premium-gray uppercase tracking-widest mb-2">Client</h5>
+                                        <p class="text-white font-sans font-medium">{{ $order->client?->full_name ?? 'Unknown client' }}</p>
+                                        <p class="text-premium-silver text-sm">{{ $order->client?->email ?? 'No email available' }}</p>
+                                    </div>
+                                    <div class="bg-premium-black/30 rounded-xl p-4 border border-white/5">
+                                        <h5 class="text-xs font-heading font-bold text-premium-gray uppercase tracking-widest mb-2">Delivery Address</h5>
+                                        @if ($order->address)
+                                            <p class="text-white font-sans">{{ $order->address->street }}</p>
+                                            <p class="text-premium-silver text-sm">{{ $order->address->city }}, {{ $order->address->postal_code }}</p>
+                                            <p class="text-premium-silver text-sm">{{ $order->address->country }}</p>
+                                            <p class="text-premium-silver text-sm mt-2">Phone: {{ $order->address->phone_number }}</p>
+                                            <p class="text-premium-silver text-sm">Email: {{ $order->address->email }}</p>
+                                        @else
+                                            <p class="text-premium-gray text-sm">No delivery address attached yet.</p>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endif
+
                             <h5 class="text-xs font-heading font-bold text-premium-gray uppercase tracking-widest">Manifest Loadout</h5>
                             <div class="bg-premium-black/30 rounded-xl p-4 border border-white/5 divide-y divide-white/5 font-sans text-sm">
                                 @foreach($order->items as $item)

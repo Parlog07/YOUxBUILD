@@ -23,6 +23,17 @@
             </div>
 
             <div class="p-8 lg:p-12">
+                @if ($errors->any())
+                    <div class="mb-8 rounded-xl border border-red-500/30 bg-red-500/10 p-4 font-sans text-red-400 text-sm">
+                        <p class="font-semibold mb-2">Please complete the delivery address.</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <h3 class="font-heading font-bold text-sm text-premium-silver uppercase tracking-widest border-b border-white/5 pb-4 mb-6">Inventory Summary</h3>
 
                 <div class="space-y-4 mb-10">
@@ -56,8 +67,34 @@
                             {{ number_format($order->total_amount, 2) }}
                         </h2>
 
-                        <form method="POST" action="{{ route('payment.confirm') }}" class="w-full">
+                        <form method="POST" action="{{ route('payment.confirm') }}" class="w-full space-y-6 text-left">
                             @csrf
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="md:col-span-2">
+                                    <label for="street" class="block text-xs font-heading font-bold uppercase tracking-widest text-premium-silver mb-2">Street</label>
+                                    <input id="street" name="street" type="text" value="{{ old('street', $order->address?->street ?? $preferredAddress?->street) }}" required class="w-full rounded-xl border border-white/10 bg-premium-black/40 px-4 py-3 text-white focus:border-premium-gold focus:ring-premium-gold">
+                                </div>
+                                <div>
+                                    <label for="city" class="block text-xs font-heading font-bold uppercase tracking-widest text-premium-silver mb-2">City</label>
+                                    <input id="city" name="city" type="text" value="{{ old('city', $order->address?->city ?? $preferredAddress?->city) }}" required class="w-full rounded-xl border border-white/10 bg-premium-black/40 px-4 py-3 text-white focus:border-premium-gold focus:ring-premium-gold">
+                                </div>
+                                <div>
+                                    <label for="postal_code" class="block text-xs font-heading font-bold uppercase tracking-widest text-premium-silver mb-2">Postal Code</label>
+                                    <input id="postal_code" name="postal_code" type="text" value="{{ old('postal_code', $order->address?->postal_code ?? $preferredAddress?->postal_code) }}" required class="w-full rounded-xl border border-white/10 bg-premium-black/40 px-4 py-3 text-white focus:border-premium-gold focus:ring-premium-gold">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label for="country" class="block text-xs font-heading font-bold uppercase tracking-widest text-premium-silver mb-2">Country</label>
+                                    <input id="country" name="country" type="text" value="{{ old('country', $order->address?->country ?? $preferredAddress?->country) }}" required class="w-full rounded-xl border border-white/10 bg-premium-black/40 px-4 py-3 text-white focus:border-premium-gold focus:ring-premium-gold">
+                                </div>
+                                <div>
+                                    <label for="phone_number" class="block text-xs font-heading font-bold uppercase tracking-widest text-premium-silver mb-2">Phone Number</label>
+                                    <input id="phone_number" name="phone_number" type="text" value="{{ old('phone_number', $order->address?->phone_number ?? $preferredAddress?->phone_number ?? auth()->user()->phone) }}" required class="w-full rounded-xl border border-white/10 bg-premium-black/40 px-4 py-3 text-white focus:border-premium-gold focus:ring-premium-gold">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-xs font-heading font-bold uppercase tracking-widest text-premium-silver mb-2">Email Address</label>
+                                    <input id="email" name="email" type="email" value="{{ old('email', $order->address?->email ?? $preferredAddress?->email ?? auth()->user()->email) }}" required class="w-full rounded-xl border border-white/10 bg-premium-black/40 px-4 py-3 text-white focus:border-premium-gold focus:ring-premium-gold">
+                                </div>
+                            </div>
                             <button type="submit" class="w-full h-16 bg-gradient-to-r from-premium-gold to-yellow-600 text-premium-black hover:from-white hover:to-white font-heading font-bold text-sm uppercase tracking-widest rounded-xl transition-all duration-500 flex justify-center items-center gap-3 shadow-glow-gold hover:scale-[1.01] active:scale-95">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                                 Authorize Transaction

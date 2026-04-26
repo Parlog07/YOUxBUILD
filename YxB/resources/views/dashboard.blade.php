@@ -51,16 +51,22 @@
                     <div class="relative z-10 flex flex-col h-[calc(100%-4rem)] justify-between">
                         @if (! auth()->user()->vendorProfile)
                             <p class="text-premium-gray font-sans text-sm mb-6">You are currently operating as a standard client. Apply to become a verified vendor to list hardware on the marketplace.</p>
-                            <form action="{{ route('vendor.request') }}" method="POST" class="mt-auto">
-                                @csrf
-                                <button type="submit" class="w-full px-6 py-3 bg-white/5 border border-white/10 text-white hover:bg-premium-gold hover:text-black hover:border-transparent font-heading font-bold text-xs uppercase tracking-widest rounded-xl transition-all duration-300">
-                                    Initiate Vendor Request
-                                </button>
-                            </form>
+                            <a href="{{ route('vendor.request.form') }}" class="w-full px-6 py-3 bg-white/5 border border-white/10 text-white hover:bg-premium-gold hover:text-black hover:border-transparent font-heading font-bold text-xs uppercase tracking-widest rounded-xl transition-all duration-300 text-center">
+                                Initiate Vendor Request
+                            </a>
                         @elseif (auth()->user()->vendorProfile->status === 'pending')
-                            <div class="flex items-center gap-3 bg-yellow-500/10 border border-yellow-500/20 p-4 rounded-xl">
-                                <svg class="w-6 h-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <p class="text-yellow-500 font-sans text-sm font-medium">Your vendor application is under review by network administrators.</p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-3 bg-yellow-500/10 border border-yellow-500/20 p-4 rounded-xl">
+                                    <svg class="w-6 h-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <p class="text-yellow-500 font-sans text-sm font-medium">Your vendor application is under review by network administrators.</p>
+                                </div>
+                                <div class="bg-premium-black/30 border border-white/10 rounded-xl p-4 space-y-2 text-sm font-sans">
+                                    <p><span class="text-premium-gray">Store:</span> <span class="text-white">{{ auth()->user()->vendorProfile->store_name }}</span></p>
+                                    <p><span class="text-premium-gray">Business address:</span> <span class="text-white">{{ auth()->user()->vendorProfile->business_address }}</span></p>
+                                    @if (auth()->user()->vendorProfile->store_description)
+                                        <p><span class="text-premium-gray">Description:</span> <span class="text-white">{{ auth()->user()->vendorProfile->store_description }}</span></p>
+                                    @endif
+                                </div>
                             </div>
                         @elseif (auth()->user()->vendorProfile->status === 'approved')
                             <div class="flex flex-col h-full justify-between">
@@ -68,14 +74,30 @@
                                     <svg class="w-6 h-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                     <p class="text-green-400 font-sans text-sm font-medium">Clearance granted. You are a verified vendor.</p>
                                 </div>
+                                <div class="bg-premium-black/30 border border-white/10 rounded-xl p-4 space-y-2 text-sm font-sans mb-4">
+                                    <p><span class="text-premium-gray">Store:</span> <span class="text-white">{{ auth()->user()->vendorProfile->store_name }}</span></p>
+                                    <p><span class="text-premium-gray">Business address:</span> <span class="text-white">{{ auth()->user()->vendorProfile->business_address }}</span></p>
+                                    @if (auth()->user()->vendorProfile->store_description)
+                                        <p><span class="text-premium-gray">Description:</span> <span class="text-white">{{ auth()->user()->vendorProfile->store_description }}</span></p>
+                                    @endif
+                                </div>
                                 <a href="{{ route('vendor.products.index') }}" class="w-full px-6 py-3 text-center bg-gradient-to-r from-premium-gold to-yellow-600 text-premium-black hover:scale-[1.02] font-heading font-bold text-xs uppercase tracking-widest rounded-xl transition-all duration-300 shadow-glow-gold">
                                     Access Vendor Dashboard
                                 </a>
                             </div>
                         @elseif (auth()->user()->vendorProfile->status === 'rejected')
-                            <div class="flex items-center gap-3 bg-red-500/10 border border-red-500/20 p-4 rounded-xl">
-                                <svg class="w-6 h-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <p class="text-red-400 font-sans text-sm font-medium">Your vendor application was rejected.</p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-3 bg-red-500/10 border border-red-500/20 p-4 rounded-xl">
+                                    <svg class="w-6 h-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <p class="text-red-400 font-sans text-sm font-medium">Your vendor application was rejected.</p>
+                                </div>
+                                <div class="bg-premium-black/30 border border-white/10 rounded-xl p-4 space-y-2 text-sm font-sans">
+                                    <p><span class="text-premium-gray">Store:</span> <span class="text-white">{{ auth()->user()->vendorProfile->store_name }}</span></p>
+                                    <p><span class="text-premium-gray">Business address:</span> <span class="text-white">{{ auth()->user()->vendorProfile->business_address }}</span></p>
+                                    @if (auth()->user()->vendorProfile->store_description)
+                                        <p><span class="text-premium-gray">Description:</span> <span class="text-white">{{ auth()->user()->vendorProfile->store_description }}</span></p>
+                                    @endif
+                                </div>
                             </div>
                         @endif
                     </div>
