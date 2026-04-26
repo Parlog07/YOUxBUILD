@@ -68,7 +68,7 @@
                                     <span class="md:hidden font-heading text-xs uppercase text-premium-gray mr-2">Qty:</span>
                                     <form action="{{ route('cart.update', $item->id) }}" method="POST" class="flex items-center bg-premium-black/50 border border-white/10 rounded-full overflow-hidden focus-within:border-premium-gold/50 transition-colors">
                                         @csrf
-                                        <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" 
+                                        <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" max="{{ $item->product->stock_quantity }}"
                                                class="w-14 bg-transparent text-center text-sm font-sans text-white border-none focus:ring-0 appearance-none py-1.5">
                                         <button type="submit" class="px-3 hover:text-premium-gold text-premium-gray transition-colors border-l border-white/10" title="Update Quantity">
                                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>

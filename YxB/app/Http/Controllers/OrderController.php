@@ -7,6 +7,7 @@ use App\Models\Address;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -63,23 +64,31 @@ class OrderController extends Controller
         $product = Product::findOrFail($request->product_id);
 
         $item = $order->items()->where('product_id', $product->id)->first();
+        $requestedQuantity = (int) $request->quantity;
+        $newQuantity = $item ? $item->quantity + $requestedQuantity : $requestedQuantity;
+
+        if ($newQuantity > $product->stock_quantity) {
+            return redirect()
+                ->route('cart.index')
+                ->with('error', 'Requested quantity exceeds the available stock.');
+        }
 
         if ($item) {
-            $item->quantity += $request->quantity;
+            $item->quantity = $newQuantity;
             $item->subtotal = $item->unit_price * $item->quantity;
             $item->save();
         } else {
             $order->items()->create([
                 'product_id' => $product->id,
-                'quantity' => $request->quantity,
+                'quantity' => $requestedQuantity,
                 'unit_price' => $product->price,
-                'subtotal' => $product->price * $request->quantity,
+                'subtotal' => $product->price * $requestedQuantity,
             ]);
         }
 
         $this->updateTotal($order);
 
-        return redirect()->back()->with('success', 'Product added to cart');
+        return redirect()->route('cart.index')->with('success', 'Product added to cart');
     }
 
     /**
@@ -97,13 +106,19 @@ class OrderController extends Controller
             abort(403);
         }
 
+        if ($request->quantity > $item->product->stock_quantity) {
+            return redirect()
+                ->route('cart.index')
+                ->with('error', 'Requested quantity exceeds the available stock.');
+        }
+
         $item->quantity = $request->quantity;
         $item->subtotal = $item->unit_price * $item->quantity;
         $item->save();
 
         $this->updateTotal($item->order);
 
-        return redirect()->back()->with('success', 'Item updated');
+        return redirect()->route('cart.index')->with('success', 'Item updated');
     }
 
     /**
@@ -122,7 +137,7 @@ class OrderController extends Controller
 
         $this->updateTotal($order);
 
-        return redirect()->back()->with('success', 'Item removed');
+        return redirect()->route('cart.index')->with('success', 'Item removed');
     }
 
     /**
@@ -188,25 +203,48 @@ class OrderController extends Controller
 
         $order = Order::where('client_id', auth()->id())
             ->where('status', OrderStatus::PENDING->value)
+            ->with('items.product')
             ->firstOrFail();
 
-        DB::transaction(function () use ($data, $order): void {
-            $address = Address::create([
-                'client_id' => auth()->id(),
-                'street' => $data['street'],
-                'city' => $data['city'],
-                'postal_code' => $data['postal_code'],
-                'country' => $data['country'],
-                'phone_number' => $data['phone_number'],
-                'email' => $data['email'],
-            ]);
+        try {
+            DB::transaction(function () use ($data, $order): void {
+                foreach ($order->items as $item) {
+                    if ($item->quantity > $item->product->stock_quantity) {
+                        throw ValidationException::withMessages([
+                            'stock' => 'One or more products do not have enough stock to complete this order.',
+                        ]);
+                    }
+                }
 
-            $order->update([
-                'address_id' => $address->id,
-                'status' => OrderStatus::CONFIRMED->value,
-                'ordered_at' => now(),
-            ]);
-        });
+                $address = Address::create([
+                    'client_id' => auth()->id(),
+                    'street' => $data['street'],
+                    'city' => $data['city'],
+                    'postal_code' => $data['postal_code'],
+                    'country' => $data['country'],
+                    'phone_number' => $data['phone_number'],
+                    'email' => $data['email'],
+                ]);
+
+                foreach ($order->items as $item) {
+                    $product = $item->product;
+                    $remainingStock = max(0, $product->stock_quantity - $item->quantity);
+
+                    $product->update([
+                        'stock_quantity' => $remainingStock,
+                        'availability_status' => $remainingStock > 0 ? $product->availability_status : 'out_of_stock',
+                    ]);
+                }
+
+                $order->update([
+                    'address_id' => $address->id,
+                    'status' => OrderStatus::CONFIRMED->value,
+                    'ordered_at' => now(),
+                ]);
+            });
+        } catch (ValidationException $exception) {
+            throw $exception;
+        }
 
         return redirect()
             ->route('orders.index')
