@@ -11,8 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Scripts (Temporary CDN for Vite/Node18 issue) -->
-    <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -43,13 +42,11 @@
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
 
-    <!-- Sketchfab Viewer API -->
-    <script type="text/javascript" src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
+        <script type="text/javascript" src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
 </head>
 <body class="bg-premium-black text-white antialiased font-sans flex flex-col min-h-screen selection:bg-premium-gold selection:text-black relative overflow-x-hidden">
 
-    <!-- Ambient Glow Background Effects -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div class="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-premium-gold/5 blur-[120px]"></div>
         <div class="absolute top-[40%] -right-[10%] w-[40%] h-[40%] rounded-full bg-premium-silver/5 blur-[100px]"></div>
     </div>
@@ -58,11 +55,9 @@
 
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full relative z-10">
         
-        <!-- Premium Header Area with 3D Integration -->
-        <header class="mb-32 pt-10 flex flex-col lg:flex-row items-center justify-between gap-12 sm:gap-20 relative">
+                <header class="mb-32 pt-10 flex flex-col lg:flex-row items-center justify-between gap-12 sm:gap-20 relative">
             
-            <!-- Left Text Content -->
-            <div class="lg:w-1/2 flex flex-col items-start text-left relative z-20">
+                        <div class="lg:w-1/2 flex flex-col items-start text-left relative z-20">
                 <span class="inline-block px-4 py-1.5 rounded-full border border-premium-gold/30 bg-premium-gold/10 text-premium-goldLight text-xs font-semibold tracking-widest uppercase mb-6 backdrop-blur-sm">
                     Next-Gen Hardware
                 </span>
@@ -90,14 +85,12 @@
                 </div>
             </div>
 
-            <!-- Right 3D Model Display -->
-            <div class="lg:w-1/2 w-full aspect-square relative z-10 group">
+                        <div class="lg:w-1/2 w-full aspect-square relative z-10 group">
                 <div class="absolute inset-0 bg-premium-gold/10 blur-[80px] rounded-full group-hover:bg-premium-gold/20 transition-colors duration-700"></div>
                 
                 <div class="w-full h-full relative rounded-3xl overflow-hidden border border-white/10 bg-premium-black/50 backdrop-blur-md shadow-glow-subtle group-hover:shadow-glow-gold group-hover:-translate-y-2 group-hover:border-premium-gold/30 transition-all duration-700">
                     
-                    <!-- Sketchfab Direct Iframe Embed with CSS Watermark Obscuring -->
-                    <iframe class="w-full h-full opacity-100 scale-[1.15]" 
+                                        <iframe class="w-full h-full opacity-100 scale-[1.15]" 
                             title="Custom Gaming PC" 
                             frameborder="0" 
                             allowfullscreen 
@@ -115,8 +108,7 @@
 
         </header>
 
-        <!-- Modern Features Layout -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20 relative z-20">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20 relative z-20">
             
             <div class="bg-premium-card/60 backdrop-blur-xl rounded-3xl border border-white/5 p-8 transition-transform hover:-translate-y-2 hover:shadow-glow-subtle hover:border-premium-silver/30 duration-300">
                 <div class="w-12 h-12 rounded-xl bg-premium-silver/10 text-premium-silver flex items-center justify-center mb-6">

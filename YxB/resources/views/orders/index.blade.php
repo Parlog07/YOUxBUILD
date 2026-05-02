@@ -34,8 +34,7 @@
                                 <p class="text-white font-mono text-xl tracking-tight">${{ number_format($order->total_amount, 2) }}</p>
                             </div>
                             
-                            <!-- Badges -->
-                            <div>
+                                                        <div>
                                 @if($order->status === 'confirmed')
                                     <span class="inline-block px-3 py-1 rounded-md bg-yellow-500/10 border border-yellow-500/20 text-xs font-medium text-yellow-500 font-heading uppercase tracking-wider">
                                         Confirmed

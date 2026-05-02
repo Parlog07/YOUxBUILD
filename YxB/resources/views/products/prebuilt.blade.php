@@ -1,8 +1,7 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
         
-        <!-- Premium Header Area -->
-        <header class="mb-16 text-center flex flex-col items-center">
+                <header class="mb-16 text-center flex flex-col items-center">
             <h1 class="text-4xl md:text-5xl font-heading font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-premium-silver to-white tracking-tight mb-4 inline-block">
                 Architected Builds.
             </h1>
@@ -20,24 +19,19 @@
                 <p class="text-premium-gray font-sans max-w-sm">The current architecture list is empty. Please check back later for new hardware drops.</p>
             </div>
         @else
-            <!-- Modern Grid Layout -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 @foreach ($products as $product)
-                    <!-- Premium Product Card -->
-                    <article class="relative flex flex-col bg-premium-card rounded-3xl border border-white/5 overflow-hidden group hover:border-premium-gold/40 hover:-translate-y-2 transition-all duration-500 hover:shadow-glow-gold">
+                                        <article class="relative flex flex-col bg-premium-card rounded-3xl border border-white/5 overflow-hidden group hover:border-premium-gold/40 hover:-translate-y-2 transition-all duration-500 hover:shadow-glow-gold">
                         
-                        <!-- Image Area -->
-                        <div class="w-full aspect-[4/3] bg-gradient-to-b from-white/5 to-transparent relative flex items-center justify-center p-8 overflow-hidden rounded-t-3xl">
+                                                <div class="w-full aspect-[4/3] bg-gradient-to-b from-white/5 to-transparent relative flex items-center justify-center p-8 overflow-hidden rounded-t-3xl">
                             <div class="absolute inset-0 bg-premium-gold/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                             <img src="{{ $product->image_url ?? 'https://images.unsplash.com/photo-1587202376732-8309058b74a4?q=80&w=400&auto=format&fit=crop' }}" 
                                  alt="{{ $product->name }}" 
                                  class="relative z-10 w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 drop-shadow-2xl brightness-90 group-hover:brightness-110">
                         </div>
 
-                        <!-- Info Area -->
-                        <div class="p-6 flex flex-col flex-grow relative z-20 bg-premium-card backdrop-blur-sm rounded-b-3xl">
-                            <!-- Badge -->
-                            <div class="flex items-center justify-between mb-3">
+                                                <div class="p-6 flex flex-col flex-grow relative z-20 bg-premium-card backdrop-blur-sm rounded-b-3xl">
+                                                        <div class="flex items-center justify-between mb-3">
                                 <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 rounded-full text-premium-silver text-[10px] font-semibold uppercase tracking-wider w-max">
                                     {{ $product->category?->name ?? 'SYSTEM ARCHITECTURE' }}
                                 </span>

@@ -17,10 +17,8 @@
 
         <div class="bg-premium-card/60 backdrop-blur-xl shadow-glow-subtle border border-white/5 rounded-3xl overflow-hidden relative">
             
-            <!-- Glassy Header -->
-            <div class="p-8 border-b border-white/5 bg-premium-black/50 relative overflow-hidden">
-                <!-- Inner glow -->
-                <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-premium-gold/50 to-transparent"></div>
+                        <div class="p-8 border-b border-white/5 bg-premium-black/50 relative overflow-hidden">
+                                <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-premium-gold/50 to-transparent"></div>
                 <h1 class="text-3xl font-heading font-extrabold uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-premium-goldLight to-premium-gold">Secure Cart</h1>
                 <p class="text-sm font-sans text-premium-gray mt-2">Active procurement order</p>
             </div>
@@ -28,21 +26,18 @@
             <div class="p-8">
                 @if($order && $order->items->count())
                     
-                    <!-- Desktop Table Header -->
-                    <div class="hidden md:grid grid-cols-12 gap-4 pb-4 font-heading font-bold text-xs uppercase tracking-widest text-premium-silver border-b border-white/5 mb-4">
+                                        <div class="hidden md:grid grid-cols-12 gap-4 pb-4 font-heading font-bold text-xs uppercase tracking-widest text-premium-silver border-b border-white/5 mb-4">
                         <div class="col-span-6">Component Identity</div>
                         <div class="col-span-2 text-center">Unit Price</div>
                         <div class="col-span-2 text-center">Quantity</div>
                         <div class="col-span-2 text-right">Subtotal</div>
                     </div>
 
-                    <!-- Items List -->
-                    <div class="divide-y divide-white/5">
+                                        <div class="divide-y divide-white/5">
                         @foreach($order->items as $item)
                             <div class="py-6 flex flex-col md:grid md:grid-cols-12 gap-4 items-center group">
                                 
-                                <!-- Product Info -->
-                                <div class="col-span-6 w-full flex items-center gap-4">
+                                                                <div class="col-span-6 w-full flex items-center gap-4">
                                     <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-white/5 to-transparent border border-white/5 flex items-center justify-center shrink-0 group-hover:border-premium-silver/30 transition-colors">
                                         <svg class="w-6 h-6 text-premium-silver" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                     </div>
@@ -57,14 +52,12 @@
                                     </div>
                                 </div>
 
-                                <!-- Price -->
-                                <div class="col-span-2 w-full md:text-center font-sans text-premium-silver mt-2 md:mt-0">
+                                                                <div class="col-span-2 w-full md:text-center font-sans text-premium-silver mt-2 md:mt-0">
                                     <span class="md:hidden font-heading text-xs uppercase text-premium-gray mr-2">Price:</span>
                                     ${{ number_format($item->unit_price, 2) }}
                                 </div>
 
-                                <!-- Quantity Actions -->
-                                <div class="col-span-2 w-full flex items-center justify-between md:justify-center mt-2 md:mt-0">
+                                                                <div class="col-span-2 w-full flex items-center justify-between md:justify-center mt-2 md:mt-0">
                                     <span class="md:hidden font-heading text-xs uppercase text-premium-gray mr-2">Qty:</span>
                                     <form action="{{ route('cart.update', $item->id) }}" method="POST" class="flex items-center bg-premium-black/50 border border-white/10 rounded-full overflow-hidden focus-within:border-premium-gold/50 transition-colors">
                                         @csrf
@@ -76,8 +69,7 @@
                                     </form>
                                 </div>
 
-                                <!-- Subtotal & Remove -->
-                                <div class="col-span-2 w-full flex items-center justify-between md:justify-end mt-4 md:mt-0 gap-4">
+                                                                <div class="col-span-2 w-full flex items-center justify-between md:justify-end mt-4 md:mt-0 gap-4">
                                     <span class="font-heading font-bold text-white tracking-tight">
                                         ${{ number_format($item->subtotal, 2) }}
                                     </span>
@@ -94,8 +86,7 @@
                         @endforeach
                     </div>
 
-                    <!-- Summary Footer -->
-                    <div class="mt-8 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
+                                        <div class="mt-8 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
                         <a href="{{ route('products.index') }}" class="text-premium-gray hover:text-white font-sans font-medium text-sm flex items-center transition-colors">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                             Continue Shopping
@@ -117,8 +108,7 @@
                     </div>
 
                 @else
-                    <!-- Empty Cart State -->
-                    <div class="py-24 flex flex-col items-center justify-center text-center">
+                                        <div class="py-24 flex flex-col items-center justify-center text-center">
                         <div class="w-24 h-24 rounded-full bg-white/5 flex items-center justify-center mb-6 border border-white/10 shadow-glow-subtle">
                             <svg class="w-10 h-10 text-premium-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                         </div>

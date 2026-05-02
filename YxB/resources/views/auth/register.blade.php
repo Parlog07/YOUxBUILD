@@ -2,8 +2,7 @@
     <div class="fixed inset-0 flex items-center justify-center p-4 z-20 overflow-y-auto">
         <div class="w-full max-w-xl bg-premium-card/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 sm:p-10 shadow-glow-subtle relative overflow-hidden my-8">
             
-            <!-- Subtle internal glow -->
-            <div class="absolute -top-10 -right-10 w-60 h-60 bg-premium-silver/10 blur-3xl rounded-full"></div>
+                        <div class="absolute -top-10 -right-10 w-60 h-60 bg-premium-silver/10 blur-3xl rounded-full"></div>
 
             <div class="text-center mb-10 relative z-10">
                 <a href="{{ route('home') }}" class="inline-block hover:scale-105 transition-transform duration-300">
@@ -32,29 +31,25 @@
                 @csrf
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Full Name -->
-                    <div class="col-span-1 md:col-span-2">
+                                        <div class="col-span-1 md:col-span-2">
                         <label class="block font-heading font-bold text-xs tracking-widest uppercase text-premium-silver mb-2">Full Identity</label>
                         <input type="text" name="full_name" value="{{ old('full_name') }}" required autofocus
                                class="w-full bg-premium-black/50 border border-white/10 text-white placeholder-premium-gray font-sans px-4 py-3 rounded-xl focus:outline-none focus:ring-1 focus:ring-premium-gold focus:border-premium-gold transition-all shadow-inner">
                     </div>
 
-                    <!-- Email -->
-                    <div class="col-span-1 md:col-span-2">
+                                        <div class="col-span-1 md:col-span-2">
                         <label class="block font-heading font-bold text-xs tracking-widest uppercase text-premium-silver mb-2">Email Address</label>
                         <input type="email" name="email" value="{{ old('email') }}" required
                                class="w-full bg-premium-black/50 border border-white/10 text-white placeholder-premium-gray font-sans px-4 py-3 rounded-xl focus:outline-none focus:ring-1 focus:ring-premium-gold focus:border-premium-gold transition-all shadow-inner">
                     </div>
 
-                    <!-- Password -->
-                    <div class="col-span-1">
+                                        <div class="col-span-1">
                         <label class="block font-heading font-bold text-xs tracking-widest uppercase text-premium-silver mb-2">Passkey</label>
                         <input type="password" name="password" required autocomplete="new-password"
                                class="w-full bg-premium-black/50 border border-white/10 text-white placeholder-premium-gray font-sans px-4 py-3 rounded-xl focus:outline-none focus:ring-1 focus:ring-premium-gold focus:border-premium-gold transition-all shadow-inner">
                     </div>
 
-                    <!-- Confirm Password -->
-                    <div class="col-span-1">
+                                        <div class="col-span-1">
                         <label class="block font-heading font-bold text-xs tracking-widest uppercase text-premium-silver mb-2">Verify Passkey</label>
                         <input type="password" name="password_confirmation" required autocomplete="new-password"
                                class="w-full bg-premium-black/50 border border-white/10 text-white placeholder-premium-gray font-sans px-4 py-3 rounded-xl focus:outline-none focus:ring-1 focus:ring-premium-gold focus:border-premium-gold transition-all shadow-inner">

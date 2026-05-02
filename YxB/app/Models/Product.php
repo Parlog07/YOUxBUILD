@@ -19,9 +19,6 @@ class Product extends Model
         'product_type',
     ];
 
-    /**
-     * vendor_id references vendor_profiles.vendor_id, not users.id directly.
-     */
     public function vendorProfile()
     {
         return $this->belongsTo(VendorProfile::class, 'vendor_id', 'vendor_id');

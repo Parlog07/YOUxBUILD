@@ -19,9 +19,6 @@ class Address extends Model
 
     public $timestamps = false;
 
-    /**
-     * client_id keeps the legacy name, but the owning model is App\Models\User.
-     */
     public function client()
     {
         return $this->belongsTo(User::class, 'client_id');

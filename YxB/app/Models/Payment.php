@@ -17,7 +17,6 @@ class Payment extends Model
 
     public $timestamps = false;
 
-    // Reserved for the future checkout/payment integration.
 
     public function order()
     {

@@ -19,8 +19,7 @@
             @endif
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Account Status Card -->
-                <div class="bg-premium-card/60 backdrop-blur-xl shadow-glow-subtle border border-white/5 rounded-3xl p-8 relative overflow-hidden group hover:border-premium-silver/30 transition-colors">
+                                <div class="bg-premium-card/60 backdrop-blur-xl shadow-glow-subtle border border-white/5 rounded-3xl p-8 relative overflow-hidden group hover:border-premium-silver/30 transition-colors">
                     <div class="absolute inset-0 bg-gradient-to-br from-premium-silver/5 to-transparent"></div>
                     
                     <h3 class="font-heading font-bold text-premium-silver uppercase tracking-widest text-sm mb-6 border-b border-white/10 pb-4 relative z-10 flex items-center gap-2">
@@ -39,8 +38,7 @@
                     </div>
                 </div>
 
-                <!-- Vendor Status Card -->
-                <div class="bg-premium-card/60 backdrop-blur-xl shadow-glow-gold border border-white/5 rounded-3xl p-8 relative overflow-hidden group hover:border-premium-gold/30 transition-colors">
+                                <div class="bg-premium-card/60 backdrop-blur-xl shadow-glow-gold border border-white/5 rounded-3xl p-8 relative overflow-hidden group hover:border-premium-gold/30 transition-colors">
                     <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-premium-gold/5 to-transparent"></div>
                     
                     <h3 class="font-heading font-bold text-premium-gold uppercase tracking-widest text-sm mb-6 border-b border-white/10 pb-4 relative z-10 flex items-center gap-2">

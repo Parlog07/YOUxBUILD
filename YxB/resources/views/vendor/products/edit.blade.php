@@ -1,8 +1,7 @@
 <x-app-layout>
     <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 py-12 relative z-10 w-full">
         
-        <!-- Premium Header Integrated -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6">
             <div>
                 <h2 class="font-heading font-extrabold text-3xl text-transparent bg-clip-text bg-gradient-to-r from-premium-goldLight to-premium-gold uppercase tracking-widest leading-tight">
                     Modify Hardware Data
@@ -43,8 +42,7 @@
                     @endif
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                        <!-- Left Column -->
-                        <div class="space-y-8">
+                                                <div class="space-y-8">
                             <div class="group">
                                 <label for="name" class="block font-heading font-bold text-[10px] tracking-widest uppercase text-premium-gray mb-3 group-focus-within:text-premium-gold transition-colors">Item Designation</label>
                                 <input id="name" name="name" type="text" value="{{ old('name', $product->name) }}" required
@@ -82,8 +80,7 @@
                             </div>
                         </div>
 
-                        <!-- Right Column -->
-                        <div class="space-y-8">
+                                                <div class="space-y-8">
                             <div class="group">
                                 <label for="availability_status" class="block font-heading font-bold text-[10px] tracking-widest uppercase text-premium-gray mb-3 group-focus-within:text-premium-gold transition-colors">Logistics State</label>
                                 <input id="availability_status" name="availability_status" type="text" value="{{ old('availability_status', $product->availability_status) }}" required
@@ -104,8 +101,7 @@
                         </div>
                     </div>
 
-                    <!-- Full Width Fields -->
-                    <div class="space-y-8 border-t border-white/5 pt-10">
+                                        <div class="space-y-8 border-t border-white/5 pt-10">
                         <div class="group">
                             <label for="description" class="block font-heading font-bold text-[10px] tracking-widest uppercase text-premium-gray mb-3 group-focus-within:text-premium-gold transition-colors">Item Overview</label>
                             <textarea id="description" name="description" rows="5" required

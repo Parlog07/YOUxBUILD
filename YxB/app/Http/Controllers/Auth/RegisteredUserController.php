@@ -15,19 +15,11 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
     public function create(): View
     {
         return view('auth.register');
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws ValidationException
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -45,6 +37,6 @@ class RegisteredUserController extends Controller
 
         auth()->login($user);
 
-        return redirect()->route('home'); // or dashboard
+        return redirect()->route('home');
     }
 }

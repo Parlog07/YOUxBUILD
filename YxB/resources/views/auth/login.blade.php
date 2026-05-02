@@ -2,8 +2,7 @@
     <div class="fixed inset-0 flex items-center justify-center p-4 z-20">
         <div class="w-full max-w-md bg-premium-card/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 sm:p-10 shadow-glow-subtle relative overflow-hidden">
             
-            <!-- Subtle internal glow -->
-            <div class="absolute -top-10 -right-10 w-40 h-40 bg-premium-gold/10 blur-3xl rounded-full"></div>
+                        <div class="absolute -top-10 -right-10 w-40 h-40 bg-premium-gold/10 blur-3xl rounded-full"></div>
 
             <div class="text-center mb-10 relative z-10">
                 <a href="{{ route('home') }}" class="inline-block hover:scale-105 transition-transform duration-300">
@@ -23,16 +22,14 @@
             <form method="POST" action="{{ route('login') }}" class="relative z-10 space-y-6">
                 @csrf
 
-                <!-- Email Address -->
-                <div>
+                                <div>
                     <label for="email" class="block font-heading font-bold text-xs tracking-widest uppercase text-premium-silver mb-2">Email Identity</label>
                     <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username"
                            class="w-full bg-premium-black/50 border border-white/10 text-white placeholder-premium-gray font-sans px-4 py-3 rounded-xl focus:outline-none focus:ring-1 focus:ring-premium-gold focus:border-premium-gold transition-all shadow-inner">
                     <x-input-error :messages="$errors->get('email')" class="mt-2 text-red-400 text-xs font-sans" />
                 </div>
 
-                <!-- Password -->
-                <div>
+                                <div>
                     <div class="flex justify-between items-center mb-2">
                         <label for="password" class="block font-heading font-bold text-xs tracking-widest uppercase text-premium-silver">Passkey</label>
                         @if (Route::has('password.request'))
@@ -46,8 +43,7 @@
                     <x-input-error :messages="$errors->get('password')" class="mt-2 text-red-400 text-xs font-sans" />
                 </div>
 
-                <!-- Remember Me -->
-                <div class="flex items-center">
+                                <div class="flex items-center">
                     <input id="remember_me" type="checkbox" name="remember" class="w-4 h-4 rounded border-white/10 bg-premium-black/50 text-premium-gold focus:ring-premium-gold focus:ring-offset-premium-black">
                     <label for="remember_me" class="ms-3 text-sm font-sans text-premium-gray">Remember signature</label>
                 </div>

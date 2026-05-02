@@ -1,8 +1,7 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12 relative z-10 w-full">
         
-        <!-- Premium Header Integrated -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6">
             <div>
                 <h2 class="font-heading font-extrabold text-3xl text-transparent bg-clip-text bg-gradient-to-r from-premium-goldLight to-premium-gold uppercase tracking-widest leading-tight">
                     Prebuilt PC Architect

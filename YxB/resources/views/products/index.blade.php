@@ -1,8 +1,7 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
         
-        <!-- Premium Header Area -->
-        <header class="mb-16 text-center flex flex-col items-center">
+                <header class="mb-16 text-center flex flex-col items-center">
             <h1 class="text-4xl md:text-5xl font-heading font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-premium-silver to-white tracking-tight mb-4 inline-block">
                 Precision Catalog.
             </h1>
@@ -11,11 +10,9 @@
             </p>
         </header>
 
-        <!-- Search & Filter Bar -->
-        <form method="GET" action="{{ route('products.index') }}" class="flex flex-col md:flex-row justify-between items-center bg-premium-card/60 backdrop-blur-xl border border-white/5 p-3 rounded-2xl mb-12 shadow-glow-subtle gap-4">
+                <form method="GET" action="{{ route('products.index') }}" class="flex flex-col md:flex-row justify-between items-center bg-premium-card/60 backdrop-blur-xl border border-white/5 p-3 rounded-2xl mb-12 shadow-glow-subtle gap-4">
             
-            <!-- Sleek Search Input -->
-            <div class="w-full md:w-96 relative group">
+                        <div class="w-full md:w-96 relative group">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-premium-gray group-focus-within:text-premium-gold transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </div>
@@ -24,8 +21,7 @@
             </div>
 
             <div class="flex items-center gap-4 w-full md:w-auto">
-                <!-- Elegant Dropdown -->
-                <div class="w-full md:w-64 relative">
+                                <div class="w-full md:w-64 relative">
                     <select name="category" class="w-full bg-premium-black/50 border border-white/10 text-white font-medium text-sm py-3 px-4 pr-10 focus:outline-none focus:border-premium-gold/50 appearance-none rounded-xl cursor-pointer transition-colors shadow-inner">
                         <option value="">All Categories</option>
                         @foreach ($categories as $cat)
@@ -34,8 +30,7 @@
                             </option>
                         @endforeach
                     </select>
-                    <!-- Custom minimal Arrow -->
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-premium-gray">
+                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-premium-gray">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                 </div>
@@ -54,24 +49,19 @@
 
         </form>
 
-        <!-- Modern Grid Layout -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
             @forelse ($products as $product)
-                <!-- Premium Product Card -->
-                <article class="relative flex flex-col bg-premium-card rounded-3xl border border-white/5 overflow-hidden group hover:border-premium-gold/40 hover:-translate-y-2 transition-all duration-500 hover:shadow-glow-gold">
+                                <article class="relative flex flex-col bg-premium-card rounded-3xl border border-white/5 overflow-hidden group hover:border-premium-gold/40 hover:-translate-y-2 transition-all duration-500 hover:shadow-glow-gold">
                     
-                    <!-- Image Area -->
-                    <div class="w-full aspect-[4/3] bg-gradient-to-b from-white/5 to-transparent relative flex items-center justify-center p-8 overflow-hidden rounded-t-3xl">
+                                        <div class="w-full aspect-[4/3] bg-gradient-to-b from-white/5 to-transparent relative flex items-center justify-center p-8 overflow-hidden rounded-t-3xl">
                         <div class="absolute inset-0 bg-premium-gold/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <img src="{{ $product->image_url ?? 'https://images.unsplash.com/photo-1587202376732-8309058b74a4?q=80&w=400&auto=format&fit=crop' }}" 
                              alt="{{ $product->name }}" 
                              class="relative z-10 w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 drop-shadow-2xl brightness-90 group-hover:brightness-110">
                     </div>
 
-                    <!-- Info Area -->
-                    <div class="p-6 flex flex-col flex-grow relative z-20 bg-premium-card backdrop-blur-sm rounded-b-3xl">
-                        <!-- Badge -->
-                        <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 rounded-full text-premium-silver text-[10px] font-semibold uppercase tracking-wider mb-3 w-max">
+                                        <div class="p-6 flex flex-col flex-grow relative z-20 bg-premium-card backdrop-blur-sm rounded-b-3xl">
+                                                <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 rounded-full text-premium-silver text-[10px] font-semibold uppercase tracking-wider mb-3 w-max">
                             {{ $product->category?->name ?? 'Uncategorized' }}
                         </span>
                         

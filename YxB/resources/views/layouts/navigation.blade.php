@@ -39,8 +39,7 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
-            <!-- Brand -->
-            <a href="{{ route('home') }}" class="flex items-center gap-4 group">
+                        <a href="{{ route('home') }}" class="flex items-center gap-4 group">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-premium-gold to-yellow-700 flex items-center justify-center shadow-glow-gold transition-transform group-hover:scale-105 duration-300">
                     <svg viewBox="0 0 40 40" class="w-6 h-6 text-premium-black fill-current">
                         <path d="M4 4h9.5l6.5 12V36h-5V18.5L5 5H4V4z"/>
@@ -50,8 +49,7 @@
                 <span class="font-heading font-bold text-xl tracking-[0.15em] text-white">YOUXBUILD</span>
             </a>
 
-            <!-- Desktop Links -->
-            <div class="hidden sm:flex items-center space-x-8">
+                        <div class="hidden sm:flex items-center space-x-8">
                 @foreach ($links as $link)
                     @php $isActive = request()->routeIs($link['route']); @endphp
                     <a href="{{ route($link['route']) }}" 
@@ -61,11 +59,9 @@
                 @endforeach
             </div>
 
-            <!-- User Dropdown Desktop -->
-            @if ($user)
+                        @if ($user)
                 <div class="hidden sm:flex sm:items-center sm:ms-6 border-l border-white/10 pl-6 h-10 my-auto">
-                    <!-- Custom styled dropdown -->
-                    <div class="relative" x-data="{ dropdownOpen: false }" @click.outside="dropdownOpen = false">
+                                        <div class="relative" x-data="{ dropdownOpen: false }" @click.outside="dropdownOpen = false">
                         <button @click="dropdownOpen = !dropdownOpen" class="flex items-center gap-2 text-premium-silver hover:text-premium-gold transition-colors focus:outline-none">
                             <span class="flex flex-col text-right">
                                 <span class="text-sm font-sans font-medium leading-none mb-1 text-white">{{ $user->full_name }}</span>
@@ -74,8 +70,7 @@
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
 
-                        <!-- Dropdown panel -->
-                        <div x-show="dropdownOpen" 
+                                                <div x-show="dropdownOpen" 
                              style="display: none;"
                              class="absolute right-0 mt-4 w-48 bg-premium-card border border-white/10 shadow-glow-subtle rounded-xl py-2 z-50 overflow-hidden">
                             
@@ -94,8 +89,7 @@
                 </div>
             @endif
 
-            <!-- Mobile Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
+                        <div class="-me-2 flex items-center sm:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-premium-gray hover:text-white focus:outline-none transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -106,8 +100,7 @@
         </div>
     </div>
 
-    <!-- Mobile Menu -->
-    <div x-show="open" style="display: none;" class="sm:hidden bg-premium-card border-t border-white/5">
+        <div x-show="open" style="display: none;" class="sm:hidden bg-premium-card border-t border-white/5">
         <div class="pt-2 pb-3 space-y-1">
             @foreach ($links as $link)
                 @php $isActive = request()->routeIs($link['route']); @endphp

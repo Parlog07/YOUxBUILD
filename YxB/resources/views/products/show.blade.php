@@ -23,26 +23,22 @@
             </div> 
         @endif
 
-        <!-- Premium Dual Column Layout -->
-        <div class="bg-premium-card/80 backdrop-blur-xl shadow-glow-subtle border border-white/5 rounded-3xl flex flex-col lg:flex-row overflow-hidden relative">
+                <div class="bg-premium-card/80 backdrop-blur-xl shadow-glow-subtle border border-white/5 rounded-3xl flex flex-col lg:flex-row overflow-hidden relative">
             
-            <!-- Badge overlay -->
-            <div class="absolute top-6 left-6 z-20">
+                        <div class="absolute top-6 left-6 z-20">
                 <span class="bg-white/10 backdrop-blur-md border border-white/10 text-premium-silver font-heading text-xs font-bold px-4 py-2 uppercase rounded-full shadow-lg">
                     {{ $product->category?->name ?? 'UNCATEGORIZED' }}
                 </span>
             </div>
 
-            <!-- Left: Floating Image Space -->
-            <div class="w-full lg:w-1/2 bg-gradient-to-br from-white/5 to-transparent flex items-center justify-center p-12 border-b lg:border-b-0 lg:border-r border-white/5 relative group">
+                        <div class="w-full lg:w-1/2 bg-gradient-to-br from-white/5 to-transparent flex items-center justify-center p-12 border-b lg:border-b-0 lg:border-r border-white/5 relative group">
                 <div class="absolute inset-0 bg-premium-gold/5 blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-700"></div>
                 <img src="{{ $product->image_url ?? 'https://images.unsplash.com/photo-1587202376732-8309058b74a4?q=80&w=800&auto=format&fit=crop' }}" 
                      alt="{{ $product->name }}" 
                      class="w-full h-full object-contain max-h-[500px] relative z-10 brightness-90 drop-shadow-2xl hover:scale-105 transition-transform duration-700">
             </div>
 
-            <!-- Right: Premium Specs and Actions -->
-            <div class="w-full lg:w-1/2 p-8 lg:p-14 flex flex-col relative z-20">
+                        <div class="w-full lg:w-1/2 p-8 lg:p-14 flex flex-col relative z-20">
                 
                 <p class="text-xs uppercase text-premium-silver font-heading font-semibold tracking-[0.2em] mb-3">Item #{{ str_pad($product->id, 5, '0', STR_PAD_LEFT) }}</p>
                 <h1 class="text-3xl lg:text-5xl font-heading font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-premium-goldLight via-premium-gold to-yellow-600 mb-6 leading-tight">
@@ -58,8 +54,7 @@
                     @endif
                 </div>
 
-                <!-- Technical Specs Wrapper -->
-                <div class="mb-12 flex-grow">
+                                <div class="mb-12 flex-grow">
                     <h3 class="font-heading font-bold text-sm text-premium-silver uppercase tracking-widest border-b border-white/10 pb-3 mb-5">Component Data</h3>
                     <div class="space-y-6 font-sans text-premium-gray leading-relaxed text-sm">
                         <p class="text-white/80 text-base">{{ $product->description }}</p>
@@ -83,8 +78,7 @@
                     </div>
                 </div>
 
-                <!-- Procurement Action -->
-                <div class="pt-8 border-t border-white/10 mt-auto">
+                                <div class="pt-8 border-t border-white/10 mt-auto">
                     @auth
                         @if(auth()->user()->role === 'client')
                             <form method="POST" action="{{ route('cart.add') }}" class="flex flex-col sm:flex-row gap-4">

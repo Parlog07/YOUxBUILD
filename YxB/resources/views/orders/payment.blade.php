@@ -12,8 +12,7 @@
         
         <div class="bg-premium-card/60 backdrop-blur-xl shadow-glow-subtle border border-white/5 rounded-3xl overflow-hidden relative">
             
-            <!-- Terminal Header -->
-            <div class="p-8 border-b border-white/5 bg-premium-black/50 relative overflow-hidden text-center">
+                        <div class="p-8 border-b border-white/5 bg-premium-black/50 relative overflow-hidden text-center">
                 <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-premium-gold/50 to-transparent"></div>
                 <div class="w-16 h-16 bg-premium-gold/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-premium-gold/30">
                     <svg class="w-8 h-8 text-premium-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04m12.849 3.332c.303.116.51.405.51.734v3.138c0 3.01-1.242 5.881-3.387 7.892L12 21l-1.573-1.892C8.283 17.098 7.041 14.227 7.041 11.217V8.08c0-.329.207-.618.51-.734l5-2z"></path></svg>

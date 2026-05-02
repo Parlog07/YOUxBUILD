@@ -14,9 +14,6 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    /**
-     * List only the authenticated vendor's products.
-     */
     public function index(): View
     {
         $products = Product::with('category')
@@ -27,9 +24,6 @@ class ProductController extends Controller
         return view('vendor.products.index', compact('products'));
     }
 
-    /**
-     * Show the product creation form.
-     */
     public function create(): View
     {
         $categories = Category::orderBy('id')->get();
@@ -37,9 +31,6 @@ class ProductController extends Controller
         return view('vendor.products.create', compact('categories'));
     }
 
-    /**
-     * Show the guided builder for vendor prebuilt PCs.
-     */
     public function createPrebuilt(): View
     {
         $prebuiltCategory = $this->prebuiltCategory();
@@ -47,9 +38,6 @@ class ProductController extends Controller
         return view('vendor.products.create-prebuilt', compact('prebuiltCategory'));
     }
 
-    /**
-     * Store a product for the authenticated vendor only.
-     */
     public function store(Request $request): RedirectResponse
     {
         Product::create([
@@ -62,9 +50,6 @@ class ProductController extends Controller
             ->with('success', 'Product created successfully.');
     }
 
-    /**
-     * Store a prebuilt PC using the same products table.
-     */
     public function storePrebuilt(Request $request): RedirectResponse
     {
         $data = $this->validatedPrebuiltData($request);
@@ -87,9 +72,6 @@ class ProductController extends Controller
             ->with('success', 'Prebuilt PC launched successfully.');
     }
 
-    /**
-     * Redirect the show route to edit to keep the resource simple.
-     */
     public function show(string $id): RedirectResponse
     {
         $product = $this->findVendorProduct($id);
@@ -97,9 +79,6 @@ class ProductController extends Controller
         return redirect()->route('vendor.products.edit', $product);
     }
 
-    /**
-     * Show the edit form for one vendor-owned product.
-     */
     public function edit(string $id): View
     {
         $product = $this->findVendorProduct($id);
@@ -108,9 +87,6 @@ class ProductController extends Controller
         return view('vendor.products.edit', compact('product', 'categories'));
     }
 
-    /**
-     * Update one vendor-owned product.
-     */
     public function update(Request $request, string $id): RedirectResponse
     {
         $product = $this->findVendorProduct($id);
@@ -122,9 +98,6 @@ class ProductController extends Controller
             ->with('success', 'Product updated successfully.');
     }
 
-    /**
-     * Delete one vendor-owned product.
-     */
     public function destroy(string $id): RedirectResponse
     {
         $product = $this->findVendorProduct($id);
@@ -136,25 +109,16 @@ class ProductController extends Controller
             ->with('success', 'Product deleted successfully.');
     }
 
-    /**
-     * Find a product only if it belongs to the current vendor.
-     */
     private function findVendorProduct(string $id): Product
     {
         return Product::where('vendor_id', $this->vendorId())->findOrFail($id);
     }
 
-    /**
-     * Resolve the current vendor profile primary key.
-     */
     private function vendorId(): int
     {
         return (int) auth()->user()->vendorProfile->getKey();
     }
 
-    /**
-     * Validate product form data using the current schema.
-     */
     private function validatedData(Request $request): array
     {
         return $request->validate([
@@ -170,9 +134,6 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
-     * Validate the guided prebuilt PC form.
-     */
     private function validatedPrebuiltData(Request $request): array
     {
         return $request->validate([
@@ -197,17 +158,11 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
-     * Create or fetch the shared category used by the public prebuilt page.
-     */
     private function prebuiltCategory(): Category
     {
         return Category::firstOrCreate(['name' => 'Prebuilt PCs']);
     }
 
-    /**
-     * Build a readable product description from the selected PC parts.
-     */
     private function buildPrebuiltDescription(array $data): string
     {
         $lines = [
@@ -244,9 +199,6 @@ class ProductController extends Controller
         return implode("\n\n", $lines);
     }
 
-    /**
-     * Store a compact spec sheet for quick viewing in the admin and vendor areas.
-     */
     private function buildPrebuiltSpecs(array $data): string
     {
         $specs = [

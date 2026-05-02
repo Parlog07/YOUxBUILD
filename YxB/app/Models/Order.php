@@ -21,9 +21,6 @@ class Order extends Model
         'total_amount' => 0,
     ];
 
-    /**
-     * client_id points to users.id even though the column keeps the legacy "client" name.
-     */
     public function client()
     {
         return $this->belongsTo(User::class, 'client_id');

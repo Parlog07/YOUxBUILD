@@ -19,9 +19,6 @@ class VendorController extends Controller
         return view('vendor.request');
     }
 
-    /**
-     * Create a pending vendor request for the authenticated user.
-     */
     public function requestVendor(Request $request): RedirectResponse
     {
         $user = auth()->user();

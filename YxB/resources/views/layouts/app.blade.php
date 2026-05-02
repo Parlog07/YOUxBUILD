@@ -7,12 +7,10 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
+                <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <!-- Scripts (Temporary CDN for Vite/Node18 issue) -->
-        <script src="https://cdn.tailwindcss.com"></script>
+                <script src="https://cdn.tailwindcss.com"></script>
         <script>
             tailwind.config = {
                 darkMode: 'class',
@@ -45,17 +43,14 @@
     </head>
     <body class="bg-premium-black text-white antialiased font-sans flex flex-col min-h-screen selection:bg-premium-gold selection:text-black">
         <div class="min-h-screen flex flex-col bg-premium-black relative">
-            <!-- Ambient Glow Background Effects -->
-            <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+                        <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
                 <div class="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-premium-gold/5 blur-[120px]"></div>
                 <div class="absolute top-[40%] -right-[10%] w-[40%] h-[40%] rounded-full bg-premium-silver/5 blur-[100px]"></div>
             </div>
             @include('layouts.navigation')
 
-            <!-- Page Heading is now handled within each view for a cleaner, unified dark aesthetic -->
-
-            <!-- Page Content -->
-            <main>
+            
+                        <main>
                 {{ $slot }}
             </main>
         </div>
